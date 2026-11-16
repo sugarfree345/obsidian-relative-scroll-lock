@@ -1,10 +1,10 @@
 {
-  "id": "relative-scroll-lock",
-  "name": "Relative Scroll Lock",
-  "version": "1.0.2",
+  "id": "relative-scroll-lock-strict",
+  "name": "Relative Scroll Lock Strict",
+  "version": "1.1.0",
   "minAppVersion": "1.13.7",
-  "description": "Position two Markdown panes independently, then lock relative scrolling without jumping. Hold Alt to adjust one pane.",
-  "author": "v-49",
-  "authorUrl": "https://github.com/v-49",
+  "description": "Lock two Markdown panes at their current offset. Both stop together at either boundary; hold Alt to adjust one pane.",
+  "author": "sugarfree345 (fork), v-49 (original)",
+  "authorUrl": "https://github.com/sugarfree345/obsidian-relative-scroll-lock",
   "isDesktopOnly": true
 }

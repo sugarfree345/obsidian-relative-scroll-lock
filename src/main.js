@@ -8,7 +8,7 @@ const messages = {
     ready: "滚动锁已就绪：分别定位左右两栏，再点底部「滚动锁：松开」锁紧。",
     layout: "请在主区域保留左右两栏笔记，再点滚动锁。支持同一笔记、阅读和编辑模式。",
     closed: "视图已关闭，滚动锁已松开。",
-    lockedNotice: "已锁紧：两栏从当前位置一起滚动。按住 Alt 可单独调整。",
+    lockedNotice: "已锁紧：两栏一起滚动，到顶或到底一起停住。按住 Alt 可单独调整。",
     unlockedNotice: "已松开：分别调整左右位置，再点一次锁紧。",
     changed: "笔记、布局或显示模式已切换，滚动锁已松开；定位后可重新锁紧。",
     temporary: "滚动锁：临时松开", locked: "滚动锁：锁紧", unlocked: "滚动锁：松开",
@@ -20,7 +20,7 @@ const messages = {
     ready: "Scroll lock is ready. Position both panes, then click “Scroll lock: unlocked” in the status bar.",
     layout: "Open exactly two Markdown panes side by side in the main workspace. The same note and reading/editing modes are supported.",
     closed: "A pane was closed. Scroll lock is now unlocked.",
-    lockedNotice: "Locked at the current positions. Hold Alt to scroll one pane independently.",
+    lockedNotice: "Locked at the current positions. Both panes stop together at either boundary. Hold Alt to adjust one pane.",
     unlockedNotice: "Unlocked. Adjust either pane, then click again to lock.",
     changed: "The note, layout, or view mode changed. Reposition the panes and lock again.",
     temporary: "Scroll lock: temporarily unlocked", locked: "Scroll lock: locked", unlocked: "Scroll lock: unlocked",
@@ -39,15 +39,23 @@ class RelativeScrollSession {
     this.positions = panes.map((pane) => pane.scrollTop);
     this.disposers = [];
     this.alt = false;
-    this.independent = panes.map(() => ({ until: 0, enabled: false }));
     this.disposed = false;
     this.propagating = false;
     panes.forEach((pane, index) => {
+      // Smooth scrolling and automatic DOM anchoring can feed stale or
+      // layout-induced deltas back into the pair. Restore both exact styles
+      // on unlock; ordinary unlocked document behavior remains native.
+      for (const [property, lockedValue] of [["scroll-behavior", "auto"], ["overflow-anchor", "none"]]) {
+        const value = pane.style.getPropertyValue(property);
+        const priority = pane.style.getPropertyPriority(property);
+        pane.style.setProperty(property, lockedValue, "important");
+        this.disposers.push(() => {
+          if (value) pane.style.setProperty(property, value, priority);
+          else pane.style.removeProperty(property);
+        });
+      }
       this.listen(pane, "scroll", () => this.scroll(index), { passive: true });
-      this.listen(pane, "wheel", (event) => {
-        this.independent[index] = { enabled: event.altKey, until: Date.now() + 220 };
-        this.setAlt(event.altKey);
-      }, { passive: true, capture: true });
+      this.listen(pane, "wheel", (event) => this.wheel(index, event), { passive: false, capture: true });
     });
     const windows = new Set(panes.map((pane) => pane.ownerDocument.defaultView));
     for (const win of windows) {
@@ -55,7 +63,6 @@ class RelativeScrollSession {
       this.listen(win, "keyup", (event) => this.setAlt(event.altKey), true);
       this.listen(win, "blur", () => {
         this.setAlt(false);
-        this.independent.forEach((state) => { state.enabled = false; });
       });
     }
   }
@@ -67,35 +74,95 @@ class RelativeScrollSession {
 
   setAlt(value) {
     if (this.alt !== value) {
+      // An Alt adjustment establishes a new offset. Absorb pending native
+      // scroll events before resuming so releasing Alt never snaps back.
+      this.positions = this.panes.map((pane) => pane.scrollTop);
       this.alt = value;
       this.onState(value);
     }
   }
 
-  scroll(index) {
-    if (this.disposed) return;
+  valid() {
+    if (this.disposed) return false;
     if (this.panes.some((pane) => !pane.isConnected)) {
       this.onInvalid();
-      return;
+      return false;
     }
-    const source = this.panes[index];
-    const delta = source.scrollTop - this.positions[index];
-    this.positions[index] = source.scrollTop;
-    const gesture = this.independent[index];
-    const independent = this.alt || (gesture.enabled && Date.now() < gesture.until);
-    if (this.propagating || independent || Math.abs(delta) < 0.01) return;
-    const targetIndex = 1 - index;
-    const target = this.panes[targetIndex];
-    const max = Math.max(0, target.scrollHeight - target.clientHeight);
+    return true;
+  }
+
+  // Inner code blocks, tables, and controls should keep their normal wheel
+  // behavior. Chain to the pair only when a nested scroller reaches its edge.
+  nestedConsumes(pane, event) {
+    const win = pane.ownerDocument.defaultView;
+    for (let el = event.target; el && el !== pane; el = el.parentElement) {
+      if (el.nodeType !== 1) continue;
+      if (el.matches("textarea, input, select, [role='slider']")) return true;
+      const style = win.getComputedStyle(el);
+      if (!/^(auto|scroll|overlay)$/.test(style.overflowY) || el.scrollHeight <= el.clientHeight) continue;
+      const max = el.scrollHeight - el.clientHeight;
+      if ((event.deltaY > 0 && el.scrollTop < max - 0.5) ||
+          (event.deltaY < 0 && el.scrollTop > 0.5)) return true;
+      const behavior = style.overscrollBehaviorY || style.overscrollBehavior;
+      if (behavior === "contain" || behavior === "none") return true;
+    }
+    return false;
+  }
+
+  wheel(index, event) {
+    if (!this.valid() || event.defaultPrevented) return;
+    this.setAlt(event.altKey);
+    // Preserve zoom, horizontal scrolling, and the explicit Alt escape hatch.
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey ||
+        !Number.isFinite(event.deltaY) || event.deltaY === 0 ||
+        Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+    const pane = this.panes[index];
+    if (this.nestedConsumes(pane, event) || !event.cancelable) return;
+    let delta = event.deltaY;
+    if (event.deltaMode === 1) {
+      const style = pane.ownerDocument.defaultView.getComputedStyle(pane);
+      const lineHeight = parseFloat(style.lineHeight);
+      const fontSize = parseFloat(style.fontSize);
+      delta *= Number.isFinite(lineHeight) ? lineHeight : (Number.isFinite(fontSize) ? fontSize * 1.2 : 16);
+    } else if (event.deltaMode === 2) {
+      delta *= pane.clientHeight;
+    }
+    // Cancel even at the boundary: excess wheel/trackpad motion is discarded,
+    // never accumulated. The very next reverse gesture can move both panes.
+    event.preventDefault();
+    event.stopPropagation();
+    this.move(delta);
+  }
+
+  move(delta) {
+    const maxima = this.panes.map((pane) => Math.max(0, pane.scrollHeight - pane.clientHeight));
+    // A resize or content deletion can make an old position unreachable.
+    // Rebase within the new ranges rather than creating a negative allowance.
+    const base = this.positions.map((position, index) => Math.min(maxima[index], Math.max(0, position)));
+    const lower = Math.max(...base.map((position) => -position));
+    const upper = Math.min(...base.map((position, index) => maxima[index] - position));
+    const shared = Math.min(upper, Math.max(lower, delta));
     this.propagating = true;
     try {
-      target.scrollTop = Math.min(max, Math.max(0, target.scrollTop + delta));
-      // Update before the asynchronously dispatched scroll event. Its echo
-      // then has zero delta, preventing recursion and bounce at boundaries.
-      this.positions[targetIndex] = target.scrollTop;
+      this.panes.forEach((pane, index) => { pane.scrollTop = base[index] + shared; });
+      // Read back actual (possibly subpixel-rounded) positions before native
+      // asynchronous scroll events echo the assignments.
+      this.positions = this.panes.map((pane) => pane.scrollTop);
     } finally {
       this.propagating = false;
     }
+  }
+
+  scroll(index) {
+    if (!this.valid() || this.propagating) return;
+    if (this.alt) {
+      this.positions = this.panes.map((pane) => pane.scrollTop);
+      return;
+    }
+    // Scrollbar drags, keyboard navigation and non-cancelable wheel events
+    // arrive after native movement; constrain the source as well as its peer.
+    const delta = this.panes[index].scrollTop - this.positions[index];
+    if (delta !== 0) this.move(delta);
   }
 
   dispose() {

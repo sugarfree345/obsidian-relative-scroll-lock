@@ -1,0 +1,622 @@
+{
+  "app": "Strict test - vault - Obsidian 1.15.1",
+  "appVersion": "1.15.1",
+  "browserUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.11.5 Chrome/142.0.7444.226 Electron/39.2.6 Safari/537.36",
+  "pluginId": "relative-scroll-lock-strict",
+  "pluginVersion": "1.1.0",
+  "fixtureOnly": true,
+  "input": "real Chromium wheel events",
+  "scenarios": [
+    {
+      "modes": [
+        {
+          "mode": "source",
+          "source": true
+        },
+        {
+          "mode": "source",
+          "source": true
+        }
+      ],
+      "before": [
+        {
+          "top": 1000,
+          "max": 112701
+        },
+        {
+          "top": 4000,
+          "max": 84192
+        }
+      ],
+      "forward": [
+        {
+          "top": 1180,
+          "max": 112701
+        },
+        {
+          "top": 4180,
+          "max": 84192
+        }
+      ],
+      "fromRight": [
+        {
+          "top": 1060,
+          "max": 112701
+        },
+        {
+          "top": 4060,
+          "max": 84192
+        }
+      ],
+      "topStart": [
+        {
+          "top": 40,
+          "max": 112587
+        },
+        {
+          "top": 1040,
+          "max": 84799
+        }
+      ],
+      "top": [
+        {
+          "top": 0,
+          "max": 112587
+        },
+        {
+          "top": 1000,
+          "max": 84799
+        }
+      ],
+      "topBlocked": [
+        {
+          "top": 0,
+          "max": 112587
+        },
+        {
+          "top": 1000,
+          "max": 84799
+        }
+      ],
+      "topReverse": [
+        {
+          "top": 120,
+          "max": 112587
+        },
+        {
+          "top": 1120,
+          "max": 84799
+        }
+      ],
+      "bottomStart": [
+        {
+          "top": 1200,
+          "max": 85835
+        },
+        {
+          "top": 85168,
+          "max": 85208
+        }
+      ],
+      "bottom": [
+        {
+          "top": 1240,
+          "max": 85835
+        },
+        {
+          "top": 85208,
+          "max": 85208
+        }
+      ],
+      "bottomBlocked": [
+        {
+          "top": 1240,
+          "max": 85835
+        },
+        {
+          "top": 85208,
+          "max": 85208
+        }
+      ],
+      "bottomReverse": [
+        {
+          "top": 1120,
+          "max": 85835
+        },
+        {
+          "top": 85088,
+          "max": 85208
+        }
+      ],
+      "altStart": [
+        {
+          "top": 1000,
+          "max": 85835
+        },
+        {
+          "top": 4000,
+          "max": 85484
+        }
+      ],
+      "altAdjusted": [
+        {
+          "top": 1120,
+          "max": 85835
+        },
+        {
+          "top": 4000,
+          "max": 85484
+        }
+      ],
+      "resumed": [
+        {
+          "top": 1240,
+          "max": 85835
+        },
+        {
+          "top": 4120,
+          "max": 85484
+        }
+      ],
+      "passed": true
+    },
+    {
+      "modes": [
+        {
+          "mode": "source",
+          "source": false
+        },
+        {
+          "mode": "source",
+          "source": false
+        }
+      ],
+      "before": [
+        {
+          "top": 1000,
+          "max": 86027
+        },
+        {
+          "top": 4000,
+          "max": 85692
+        }
+      ],
+      "forward": [
+        {
+          "top": 1180,
+          "max": 86027
+        },
+        {
+          "top": 4180,
+          "max": 85692
+        }
+      ],
+      "fromRight": [
+        {
+          "top": 1060,
+          "max": 86027
+        },
+        {
+          "top": 4060,
+          "max": 85692
+        }
+      ],
+      "topStart": [
+        {
+          "top": 40,
+          "max": 86097
+        },
+        {
+          "top": 1040,
+          "max": 85884
+        }
+      ],
+      "top": [
+        {
+          "top": 0,
+          "max": 86097
+        },
+        {
+          "top": 1000,
+          "max": 85884
+        }
+      ],
+      "topBlocked": [
+        {
+          "top": 0,
+          "max": 86097
+        },
+        {
+          "top": 1000,
+          "max": 85884
+        }
+      ],
+      "topReverse": [
+        {
+          "top": 120,
+          "max": 86097
+        },
+        {
+          "top": 1120,
+          "max": 85884
+        }
+      ],
+      "bottomStart": [
+        {
+          "top": 1200,
+          "max": 86075
+        },
+        {
+          "top": 85924,
+          "max": 85964
+        }
+      ],
+      "bottom": [
+        {
+          "top": 1240,
+          "max": 86075
+        },
+        {
+          "top": 85964,
+          "max": 85964
+        }
+      ],
+      "bottomBlocked": [
+        {
+          "top": 1240,
+          "max": 86075
+        },
+        {
+          "top": 85964,
+          "max": 85964
+        }
+      ],
+      "bottomReverse": [
+        {
+          "top": 1120,
+          "max": 86075
+        },
+        {
+          "top": 85844,
+          "max": 85964
+        }
+      ],
+      "altStart": [
+        {
+          "top": 1000,
+          "max": 86075
+        },
+        {
+          "top": 4000,
+          "max": 86080
+        }
+      ],
+      "altAdjusted": [
+        {
+          "top": 1120,
+          "max": 86075
+        },
+        {
+          "top": 4000,
+          "max": 86080
+        }
+      ],
+      "resumed": [
+        {
+          "top": 1240,
+          "max": 86075
+        },
+        {
+          "top": 4120,
+          "max": 86080
+        }
+      ],
+      "passed": true
+    },
+    {
+      "modes": [
+        {
+          "mode": "preview"
+        },
+        {
+          "mode": "preview"
+        }
+      ],
+      "before": [
+        {
+          "top": 1000,
+          "max": 123739
+        },
+        {
+          "top": 4000,
+          "max": 120508
+        }
+      ],
+      "forward": [
+        {
+          "top": 1180,
+          "max": 123739
+        },
+        {
+          "top": 4180,
+          "max": 120481
+        }
+      ],
+      "fromRight": [
+        {
+          "top": 1060,
+          "max": 123739
+        },
+        {
+          "top": 4060,
+          "max": 120463
+        }
+      ],
+      "topStart": [
+        {
+          "top": 40,
+          "max": 123739
+        },
+        {
+          "top": 4158,
+          "max": 120491
+        }
+      ],
+      "top": [
+        {
+          "top": 0,
+          "max": 123739
+        },
+        {
+          "top": 4118,
+          "max": 120491
+        }
+      ],
+      "topBlocked": [
+        {
+          "top": 0,
+          "max": 123739
+        },
+        {
+          "top": 4118,
+          "max": 120491
+        }
+      ],
+      "topReverse": [
+        {
+          "top": 120,
+          "max": 123739
+        },
+        {
+          "top": 4238,
+          "max": 120491
+        }
+      ],
+      "bottomStart": [
+        {
+          "top": 1200,
+          "max": 123739
+        },
+        {
+          "top": 120838,
+          "max": 120878
+        }
+      ],
+      "bottom": [
+        {
+          "top": 1240,
+          "max": 123739
+        },
+        {
+          "top": 120878,
+          "max": 120878
+        }
+      ],
+      "bottomBlocked": [
+        {
+          "top": 1240,
+          "max": 123739
+        },
+        {
+          "top": 120878,
+          "max": 120878
+        }
+      ],
+      "bottomReverse": [
+        {
+          "top": 1120,
+          "max": 123739
+        },
+        {
+          "top": 120758,
+          "max": 120878
+        }
+      ],
+      "altStart": [
+        {
+          "top": 1000,
+          "max": 123739
+        },
+        {
+          "top": 4000,
+          "max": 120516
+        }
+      ],
+      "altAdjusted": [
+        {
+          "top": 1120,
+          "max": 123739
+        },
+        {
+          "top": 4000,
+          "max": 120516
+        }
+      ],
+      "resumed": [
+        {
+          "top": 1240,
+          "max": 123739
+        },
+        {
+          "top": 4120,
+          "max": 120516
+        }
+      ],
+      "passed": true
+    },
+    {
+      "modes": [
+        {
+          "mode": "source",
+          "source": false
+        },
+        {
+          "mode": "preview"
+        }
+      ],
+      "before": [
+        {
+          "top": 1000,
+          "max": 86075
+        },
+        {
+          "top": 4000,
+          "max": 120516
+        }
+      ],
+      "forward": [
+        {
+          "top": 1180,
+          "max": 86075
+        },
+        {
+          "top": 4180,
+          "max": 120516
+        }
+      ],
+      "fromRight": [
+        {
+          "top": 1060,
+          "max": 86075
+        },
+        {
+          "top": 4060,
+          "max": 120516
+        }
+      ],
+      "topStart": [
+        {
+          "top": 40,
+          "max": 86097
+        },
+        {
+          "top": 1040,
+          "max": 120516
+        }
+      ],
+      "top": [
+        {
+          "top": 0,
+          "max": 86097
+        },
+        {
+          "top": 1000,
+          "max": 120516
+        }
+      ],
+      "topBlocked": [
+        {
+          "top": 0,
+          "max": 86097
+        },
+        {
+          "top": 1000,
+          "max": 120516
+        }
+      ],
+      "topReverse": [
+        {
+          "top": 120,
+          "max": 86097
+        },
+        {
+          "top": 1120,
+          "max": 120516
+        }
+      ],
+      "bottomStart": [
+        {
+          "top": 1200,
+          "max": 86075
+        },
+        {
+          "top": 120838,
+          "max": 120878
+        }
+      ],
+      "bottom": [
+        {
+          "top": 1240,
+          "max": 86075
+        },
+        {
+          "top": 120878,
+          "max": 120878
+        }
+      ],
+      "bottomBlocked": [
+        {
+          "top": 1240,
+          "max": 86075
+        },
+        {
+          "top": 120878,
+          "max": 120878
+        }
+      ],
+      "bottomReverse": [
+        {
+          "top": 1120,
+          "max": 86075
+        },
+        {
+          "top": 120758,
+          "max": 120878
+        }
+      ],
+      "altStart": [
+        {
+          "top": 1000,
+          "max": 86075
+        },
+        {
+          "top": 4000,
+          "max": 120516
+        }
+      ],
+      "altAdjusted": [
+        {
+          "top": 1120,
+          "max": 86075
+        },
+        {
+          "top": 4000,
+          "max": 120516
+        }
+      ],
+      "resumed": [
+        {
+          "top": 1240,
+          "max": 86075
+        },
+        {
+          "top": 4120,
+          "max": 120516
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

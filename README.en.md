@@ -1,61 +1,56 @@
-# Relative Scroll Lock
+# Relative Scroll Lock Strict
 
-**Position two panes independently. Lock them in place. Scroll together.**
+**Position two Markdown panes independently. Lock their offset. Both stop together at either end.**
 
-[简体中文](README.zh-CN.md) · [Download](https://github.com/v-49/obsidian-relative-scroll-lock/releases/latest) · [Report an issue](https://github.com/v-49/obsidian-relative-scroll-lock/issues)
+[简体中文](README.zh-CN.md) · [Download](https://github.com/sugarfree345/obsidian-relative-scroll-lock/releases/latest) · [Report an issue](https://github.com/sugarfree345/obsidian-relative-scroll-lock/issues)
 
-Compare a source passage with a revision elsewhere in the same long note, or compare two different notes. Locking preserves both starting positions. Neither pane jumps to the other pane's location.
+This is a fork of [v-49's Relative Scroll Lock](https://github.com/v-49/obsidian-relative-scroll-lock), based on version 1.0.2. The original scroll-lock controls remain, with a stricter boundary rule: if either pane reaches the top or bottom, neither pane can continue in that direction. Reverse scrolling resumes immediately without consuming accumulated wheel movement.
 
-![Two different sections of the same synthetic test note, with scroll lock enabled](docs/screenshot.png)
-
-The screenshot shows an isolated test vault with synthetic content. The UI follows Obsidian's language: Chinese for Chinese locales, English otherwise.
-
-## Use
-
-1. Open exactly two Markdown panes side by side in the main workspace. They can show the same note or different notes.
-2. Scroll each pane to its desired starting passage.
-3. Click **Scroll lock: unlocked** in the status bar. Scrolling either pane now moves the other pane by the same vertical pixel distance.
-4. Click again to unlock and adjust the positions separately.
-
-Hold **Alt** while scrolling to adjust only the pane under the pointer. Release Alt to resume synchronization from the new positions. The ribbon and note-header lock buttons work like the status-bar button.
-
-Unlike native linked tabs, this plugin preserves an arbitrary starting offset. It synchronizes movement, not matching text, line numbers, or percentages. Different passage lengths can drift; use Alt or unlock to adjust.
-
-If the two panes are already natively linked, **clicking Lock removes their native link**. Unlocking or disabling the plugin does not restore it. You can recreate the native link from the tab context menu.
+The fork has a separate plugin ID, `relative-scroll-lock-strict`. **Disable the original Relative Scroll Lock and any other scroll-sync plugin before enabling this fork.** This fork is distributed through GitHub Releases, not the Obsidian Community Plugins listing for the original.
 
 ## Install
 
-**Available in [Obsidian Community Plugins](https://community.obsidian.md/plugins/relative-scroll-lock).**
+### Download the ready-to-use ZIP
 
-In Obsidian, open Settings → Community plugins → Browse, search for **Relative Scroll Lock**, install, and enable it. You can also open the community page and select **Add to Obsidian**.
+1. Download `relative-scroll-lock-strict-1.1.0.zip` from the [latest release](https://github.com/sugarfree345/obsidian-relative-scroll-lock/releases/latest).
+2. Extract the `relative-scroll-lock-strict` folder into your vault's plugin directory, normally `.obsidian/plugins/`.
+3. Reload Obsidian. In **Settings → Community plugins**, enable **Relative Scroll Lock Strict**. Restricted mode must be off.
 
-### Manual installation
+The installed directory must contain `main.js`, `manifest.json`, and `styles.css` directly inside `.obsidian/plugins/relative-scroll-lock-strict/`. Do not add another nested folder. GitHub's automatic source archives require a build; use the release ZIP instead.
 
-1. Download `relative-scroll-lock-1.0.2.zip` from the [latest release](https://github.com/v-49/obsidian-relative-scroll-lock/releases/latest).
-2. Extract its `relative-scroll-lock` folder into your vault's plugin directory, normally `.obsidian/plugins/`. If you use a custom configuration directory, use its `plugins/` directory instead.
-3. Reload Obsidian and enable **Relative Scroll Lock** in Settings → Community plugins. Turn off Restricted mode if it is enabled.
+### BRAT
 
-The plugin folder must contain `main.js`, `manifest.json`, and `styles.css`. These files are also available individually on the release page. GitHub's automatic source-code archives require a build and are not installable packages.
+If you already use [BRAT](https://github.com/TfTHacker/obsidian42-brat), add `sugarfree345/obsidian-relative-scroll-lock` as a beta plugin. Releases include the standalone `main.js`, `manifest.json`, and `styles.css` assets that BRAT expects.
 
-No default shortcut is assigned. In Settings → Hotkeys, search for **Relative Scroll Lock** and assign a shortcut to **Lock / unlock**. For example, use `Ctrl + Alt + L` if it is available. The command palette also provides **Lock / unlock** and **Unlock**.
+## Use
+
+1. Open exactly two Markdown panes side by side in the main workspace. Both can display the same note.
+2. Scroll each pane independently to the desired starting position. For continuous two-column reading, align the right pane's first passage with the passage immediately after the left pane's last visible passage.
+3. Click **Scroll lock: unlocked** in the status bar, ribbon, or note header.
+4. Scroll either pane. Both move the same distance, limited by the space remaining in either pane.
+5. If either pane reaches the top or bottom, both stop in that direction. Scroll back to resume immediately.
+
+Hold **Alt** while scrolling to reposition only the pane under the pointer. Release Alt to continue from the new relative positions. Click the lock again to unlock. No default shortcut is assigned; assign **Lock / unlock** under **Settings → Hotkeys** if desired.
+
+If the two tabs are natively linked, clicking Lock removes their native link. Unlocking does not restore it; recreate it from the tab context menu if needed.
 
 ## Compatibility and limits
 
-- Desktop only; Obsidian **1.13.7+**. The original local build was tested on Windows / Obsidian 1.13.7; the public build was separately verified on Windows / Obsidian 1.14.4. macOS and Linux have not been tested on real devices.
-- Exactly two visible, horizontally adjacent Markdown panes in the main workspace. Sidebars and hidden tabs do not count.
-- Supports the same note in both panes, Live Preview, source mode, Reading view, and mixed modes.
-- PDF, Canvas, mobile, pop-out windows, stacked vertical layouts, and three or more visible main panes are unsupported.
-- Starts unlocked. A file, view-mode, or incompatible layout change automatically unlocks the pair.
-- At the top or bottom, one pane stays clamped while the other may continue. Reverse movement proceeds from the current positions.
-- Pixel-based movement does not automatically align corresponding passages. Font sizes, zoom, folds, edits, and images loading can change visual alignment.
+- Desktop Obsidian **1.13.7+**; exactly two visible Markdown panes side by side in the main workspace.
+- Reading view, Live Preview, source mode, and mixed modes use the existing view adapters. See [validation](docs/validation.md) for what has actually been tested for this fork.
+- PDF, Canvas, mobile, pop-out windows, vertically stacked panes, and three or more visible main panes are unsupported.
+- A file, view-mode, or unsupported layout change unlocks the pair.
+- This preserves pixel distance, not corresponding text or line numbers. Keep pane widths, fonts, and display modes equal for continuous same-note reading. Edits, folds, resizing, and images loading may require realignment.
+- Mouse-wheel movement is constrained before the panes scroll. Other scroll changes use correction through scroll events; do not assume every third-party editor modification behaves identically.
+- Ctrl/Meta-wheel zoom, horizontal scrolling, and nested scrollable elements keep their normal behavior.
 
-## Privacy
+## Privacy and license
 
-No network requests, telemetry, account, payment, note-body access, or frontmatter changes. No third-party runtime dependencies; the plugin uses Obsidian's API.
+No network requests, telemetry, accounts, or note-body changes. The plugin reads view and scroll-container state. Locking can remove a native tab link, which Obsidian saves in its workspace state. Pair relationships and positions are not persisted by this plugin.
 
-The plugin accesses current views, note paths, layout, and scroll containers. Locking can remove the pair's native tab link; Obsidian saves that workspace state. No scroll positions or pair relationships are persisted by the plugin.
+[MIT](LICENSE). Original copyright **2026 v-49** is retained. Fork maintained by **sugarfree345**. Not affiliated with Obsidian.
 
-## Development
+## Build
 
 ```sh
 npm ci
@@ -63,14 +58,11 @@ npm run check
 npm run package
 ```
 
-Source lives in `src/main.js`; esbuild produces the release `main.js`. The package command stages installable files in `dist/relative-scroll-lock/`.
+`src/main.js` is bundled to root `main.js`. Packaging produces:
 
-See [validation notes](docs/validation.md) for the distinction between automated regression coverage and real Obsidian checks. Source mode uses the same editor scroll container but has not had a separate real-app scenario run.
+- `dist/relative-scroll-lock-strict/`: installable plugin folder.
+- `dist/relative-scroll-lock-strict-1.1.0.zip`: installable ZIP containing that folder.
+- `dist/main.js`, `dist/manifest.json`, `dist/styles.css`, `dist/LICENSE`: standalone release assets.
+- `dist/SHA256SUMS.txt`: release checksums.
 
-Developed with AI assistance for a real review workflow. All public screenshots and examples use synthetic text.
-
-## License and feedback
-
-[MIT](LICENSE). Free and open source. Not affiliated with Obsidian.
-
-Please include your Obsidian version, OS, pane modes, and reproduction steps when [reporting an issue](https://github.com/v-49/obsidian-relative-scroll-lock/issues). Remove personal information from examples.
+ZIP contents are sorted with fixed timestamps, so the same source and build output produce the same archive. No personal vault is needed to build or run the automated tests.

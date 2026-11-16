@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.1.0 — 2026-11-17 (Strict fork)
+
+- Fork upstream 1.0.2 under the separate plugin ID `relative-scroll-lock-strict`, maintained by sugarfree345; retain upstream v-49's MIT license.
+- Keep both panes inside their shared scrollable range: reaching either pane's top or bottom stops both in that direction while preserving their starting offset.
+- Limit mouse-wheel displacement before native scrolling; reverse scrolling resumes without accumulated overscroll.
+- Preserve Alt-based independent adjustment and existing lock/unlock controls.
+- Suspend smooth scrolling and automatic browser scroll anchoring while locked, restoring original styles on unlock; verify the fix in actual Obsidian Reading view.
+- Distribute a ready-to-install folder ZIP plus standalone Obsidian/BRAT release assets and SHA-256 checksums.
+- Clearly separate historical upstream validation from verification of this fork.
+
+The entries below describe the original upstream plugin, not the strict fork.
+
 ## 1.0.2 — 2026-10-15
 
 - Add the published Community Plugins listing and in-app installation instructions to the English and Chinese guides. Runtime behavior is unchanged.

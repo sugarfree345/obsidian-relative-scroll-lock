@@ -31,6 +31,7 @@ function fixture(modes = ['source', 'source'], language = 'zh') {
     containerEl.getBoundingClientRect = () => ({ left: index * 610, right: index * 610 + 600, top: 0, bottom: 700, width: 600, height: 700 });
     const pane = document.createElement('div');
     pane.className = mode === 'preview' ? 'markdown-preview-view' : 'cm-scroller';
+    pane.style.lineHeight = '20px';
     containerEl.append(pane);
     Object.defineProperties(pane, { scrollHeight: { value: 10000, configurable: true }, clientHeight: { value: 700, configurable: true } });
     pane.scrollTop = index === 0 ? 1200 : 5400;
@@ -44,7 +45,12 @@ function fixture(modes = ['source', 'source'], language = 'zh') {
   const panes = leaves.map(leaf => leaf.view.contentEl.firstChild);
   function scroll(index, top) { panes[index].scrollTop = top; panes[index].dispatchEvent(new dom.window.Event('scroll')); }
   function wheel(index, alt) { panes[index].dispatchEvent(new dom.window.WheelEvent('wheel', { altKey: alt })); }
-  return { dom, leaves, panes, plugin, notices, listeners, scroll, wheel };
+  function sendWheel(index, options = {}, target = panes[index]) {
+    const event = new dom.window.WheelEvent('wheel', { bubbles: true, cancelable: true, deltaY: 100, ...options });
+    target.dispatchEvent(event);
+    return event;
+  }
+  return { dom, leaves, panes, plugin, notices, listeners, scroll, wheel, sendWheel };
 }
 
 for (const modes of [['source', 'source'], ['preview', 'preview'], ['source', 'preview']]) {
@@ -95,17 +101,195 @@ test('Alt gesture is independent; next ordinary gesture uses new positions', () 
   f.plugin.onunload();
 });
 
-test('top and bottom clamping does not bounce or block the source', () => {
+test('scrollbar/keyboard fallback clamps both panes and reverses with no dead travel', () => {
   const f = fixture();
   f.plugin.toggle();
   f.scroll(0, 6000);
-  assert.equal(f.panes[1].scrollTop, 9300);
+  assert.deepEqual(f.panes.map(p => p.scrollTop), [5100, 9300]);
   f.panes[1].dispatchEvent(new f.dom.window.Event('scroll'));
-  assert.equal(f.panes[0].scrollTop, 6000);
-  f.scroll(0, 6100);
-  assert.equal(f.panes[1].scrollTop, 9300);
-  f.scroll(0, 6000);
-  assert.equal(f.panes[1].scrollTop, 9200);
+  assert.equal(f.panes[0].scrollTop, 5100, 'programmatic echo must not bounce');
+  f.scroll(0, 5200);
+  assert.deepEqual(f.panes.map(p => p.scrollTop), [5100, 9300]);
+  f.scroll(0, 5000);
+  assert.deepEqual(f.panes.map(p => p.scrollTop), [5000, 9200]);
+  f.scroll(1, 0);
+  assert.deepEqual(f.panes.map(p => p.scrollTop), [0, 4200]);
+  f.scroll(1, 4100);
+  assert.deepEqual(f.panes.map(p => p.scrollTop), [0, 4200]);
+  f.scroll(1, 4300);
+  assert.deepEqual(f.panes.map(p => p.scrollTop), [100, 4300]);
+  f.plugin.onunload();
+});
+
+for (const index of [0, 1]) {
+  test(`wheel from pane ${index}: both stop at bottom and reverse immediately`, () => {
+    const f = fixture();
+    f.panes[0].scrollTop = 4880;
+    f.panes[1].scrollTop = 9280;
+    f.plugin.toggle();
+    const event = f.sendWheel(index, { deltaY: 100 });
+    assert.equal(event.defaultPrevented, true, 'native wheel movement must be intercepted');
+    assert.deepEqual(f.panes.map(p => p.scrollTop), [4900, 9300]);
+    for (let count = 0; count < 5; count++) f.sendWheel(index, { deltaY: 400 });
+    assert.deepEqual(f.panes.map(p => p.scrollTop), [4900, 9300]);
+    f.sendWheel(index, { deltaY: -35 });
+    assert.deepEqual(f.panes.map(p => p.scrollTop), [4865, 9265]);
+    f.plugin.onunload();
+  });
+
+  test(`wheel from pane ${index}: both stop at top and reverse immediately`, () => {
+    const f = fixture();
+    f.panes[0].scrollTop = 20;
+    f.panes[1].scrollTop = 4420;
+    f.plugin.toggle();
+    f.sendWheel(index, { deltaY: -100 });
+    assert.deepEqual(f.panes.map(p => p.scrollTop), [0, 4400]);
+    for (let count = 0; count < 5; count++) f.sendWheel(index, { deltaY: -400 });
+    assert.deepEqual(f.panes.map(p => p.scrollTop), [0, 4400]);
+    f.sendWheel(index, { deltaY: 35 });
+    assert.deepEqual(f.panes.map(p => p.scrollTop), [35, 4435]);
+    f.plugin.onunload();
+  });
+}
+
+test('strict movement respects unequal pane lengths and a non-scrollable pane', () => {
+  const f = fixture();
+  Object.defineProperty(f.panes[0], 'scrollHeight', { value: 4000, configurable: true });
+  f.panes[0].scrollTop = 3280;
+  f.panes[1].scrollTop = 5400;
+  f.plugin.toggle();
+  f.sendWheel(1, { deltaY: 100 });
+  assert.deepEqual(f.panes.map(p => p.scrollTop), [3300, 5420]);
+  f.sendWheel(0, { deltaY: -30 });
+  assert.deepEqual(f.panes.map(p => p.scrollTop), [3270, 5390]);
+  f.plugin.unlock();
+  Object.defineProperty(f.panes[0], 'scrollHeight', { value: 700, configurable: true });
+  f.panes[0].scrollTop = 0;
+  f.plugin.toggle();
+  f.sendWheel(1, { deltaY: 100 });
+  f.sendWheel(1, { deltaY: -100 });
+  assert.deepEqual(f.panes.map(p => p.scrollTop), [0, 5390]);
+  f.plugin.onunload();
+});
+
+test('fractional wheel distances preserve the initial difference', () => {
+  const f = fixture();
+  f.plugin.toggle();
+  f.sendWheel(0, { deltaY: 0.25 });
+  f.sendWheel(1, { deltaY: -0.125 });
+  assert.deepEqual(f.panes.map(p => p.scrollTop), [1200.125, 5400.125]);
+  f.plugin.onunload();
+});
+
+test('line and page wheel units use line height and the source viewport height', () => {
+  const f = fixture();
+  f.plugin.toggle();
+  f.sendWheel(0, { deltaMode: 1, deltaY: 3 });
+  assert.deepEqual(f.panes.map(p => p.scrollTop), [1260, 5460]);
+  f.sendWheel(1, { deltaMode: 2, deltaY: -1 });
+  assert.deepEqual(f.panes.map(p => p.scrollTop), [560, 4760]);
+  f.plugin.onunload();
+});
+
+test('Ctrl/Meta zoom and horizontal wheel gestures remain native', () => {
+  const f = fixture();
+  f.plugin.toggle();
+  for (const options of [{ ctrlKey: true }, { metaKey: true }, { shiftKey: true }, { deltaY: 0, deltaX: 100 }]) {
+    assert.equal(f.sendWheel(0, options).defaultPrevented, false);
+    assert.deepEqual(f.panes.map(p => p.scrollTop), [1200, 5400]);
+  }
+  f.plugin.onunload();
+});
+
+test('Alt wheel stays native, then ordinary wheel locks at the adjusted positions', () => {
+  const f = fixture();
+  f.plugin.toggle();
+  assert.equal(f.sendWheel(0, { altKey: true }).defaultPrevented, false);
+  f.scroll(0, 2300);
+  assert.equal(f.panes[1].scrollTop, 5400);
+  f.dom.window.dispatchEvent(new f.dom.window.KeyboardEvent('keyup', { key: 'Alt', altKey: false }));
+  f.sendWheel(0, { deltaY: 100 });
+  assert.deepEqual(f.panes.map(p => p.scrollTop), [2400, 5500]);
+  f.plugin.onunload();
+});
+
+test('scrollable nested content retains its own wheel behavior', () => {
+  const f = fixture();
+  const inner = f.dom.window.document.createElement('div');
+  inner.style.overflowY = 'auto';
+  Object.defineProperties(inner, { scrollHeight: { value: 1000 }, clientHeight: { value: 100 } });
+  inner.scrollTop = 100;
+  f.panes[0].append(inner);
+  f.plugin.toggle();
+  assert.equal(f.sendWheel(0, { deltaY: 30 }, inner).defaultPrevented, false);
+  assert.deepEqual(f.panes.map(p => p.scrollTop), [1200, 5400]);
+  f.plugin.onunload();
+});
+
+test('nested scroller at its edge chains into the strictly coupled pair', () => {
+  const f = fixture();
+  const inner = f.dom.window.document.createElement('div');
+  inner.style.overflowY = 'auto';
+  Object.defineProperties(inner, { scrollHeight: { value: 1000 }, clientHeight: { value: 100 } });
+  inner.scrollTop = 900;
+  f.panes[0].append(inner);
+  f.plugin.toggle();
+  assert.equal(f.sendWheel(0, { deltaY: 30 }, inner).defaultPrevented, true);
+  assert.deepEqual(f.panes.map(p => p.scrollTop), [1230, 5430]);
+  f.plugin.onunload();
+});
+
+test('nested overscroll containment keeps the gesture native at its edge', () => {
+  const f = fixture();
+  const inner = f.dom.window.document.createElement('div');
+  inner.style.overflowY = 'auto';
+  inner.style.overscrollBehaviorY = 'contain';
+  Object.defineProperties(inner, { scrollHeight: { value: 1000 }, clientHeight: { value: 100 } });
+  inner.scrollTop = 900;
+  f.panes[0].append(inner);
+  f.plugin.toggle();
+  assert.equal(f.sendWheel(0, { deltaY: 30 }, inner).defaultPrevented, false);
+  assert.deepEqual(f.panes.map(p => p.scrollTop), [1200, 5400]);
+  f.plugin.onunload();
+});
+
+test('CSS scroll behavior and anchoring are constrained and exactly restored on unlock', () => {
+  const f = fixture();
+  f.panes[0].style.setProperty('scroll-behavior', 'smooth', 'important');
+  f.panes[0].style.setProperty('overflow-anchor', 'auto', 'important');
+  f.plugin.toggle();
+  assert.equal(f.panes[0].style.getPropertyValue('scroll-behavior'), 'auto');
+  assert.equal(f.panes[1].style.getPropertyValue('scroll-behavior'), 'auto');
+  assert.equal(f.panes[0].style.getPropertyValue('overflow-anchor'), 'none');
+  assert.equal(f.panes[1].style.getPropertyValue('overflow-anchor'), 'none');
+  f.plugin.unlock();
+  assert.equal(f.panes[0].style.getPropertyValue('scroll-behavior'), 'smooth');
+  assert.equal(f.panes[0].style.getPropertyPriority('scroll-behavior'), 'important');
+  assert.equal(f.panes[1].style.getPropertyValue('scroll-behavior'), '');
+  assert.equal(f.panes[0].style.getPropertyValue('overflow-anchor'), 'auto');
+  assert.equal(f.panes[0].style.getPropertyPriority('overflow-anchor'), 'important');
+  assert.equal(f.panes[1].style.getPropertyValue('overflow-anchor'), '');
+  f.plugin.onunload();
+});
+
+test('content shrink rebases unreachable positions without a negative shared allowance', () => {
+  const f = fixture();
+  f.plugin.toggle();
+  Object.defineProperty(f.panes[1], 'scrollHeight', { value: 3700, configurable: true });
+  f.sendWheel(0, { deltaY: 100 });
+  assert.deepEqual(f.panes.map(p => p.scrollTop), [1200, 3000]);
+  f.sendWheel(1, { deltaY: -20 });
+  assert.deepEqual(f.panes.map(p => p.scrollTop), [1180, 2980]);
+  f.plugin.onunload();
+});
+
+test('unlock removes the wheel handler and restores native scrolling', () => {
+  const f = fixture();
+  f.plugin.toggle();
+  f.plugin.unlock();
+  assert.equal(f.sendWheel(0).defaultPrevented, false);
+  f.scroll(0, 1500);
+  assert.equal(f.panes[1].scrollTop, 5400);
   f.plugin.onunload();
 });
 
