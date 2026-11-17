@@ -1,0 +1,797 @@
+{
+  "app": "Continuous reflow - vault - Obsidian 1.15.1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.11.5 Chrome/142.0.7444.226 Electron/39.2.6 Safari/537.36",
+  "pluginVersion": "1.2.0",
+  "fixtureOnly": true,
+  "results": [
+    {
+      "mode": {
+        "mode": "source",
+        "source": true
+      },
+      "initial": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 1200,
+            "max": 77544,
+            "height": 602,
+            "topAnchor": 34.40625,
+            "bottomAnchor": 53.6328125,
+            "width": 502
+          },
+          {
+            "top": 1728,
+            "max": 78185,
+            "height": 602,
+            "topAnchor": 53.640625,
+            "bottomAnchor": 72.56964656964657,
+            "width": 502
+          }
+        ]
+      },
+      "forward": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 1380,
+            "max": 77544,
+            "height": 602,
+            "topAnchor": 40.04781704781705,
+            "bottomAnchor": 58.940104166666664,
+            "width": 502
+          },
+          {
+            "top": 1908,
+            "max": 78185,
+            "height": 602,
+            "topAnchor": 58.944010416666664,
+            "bottomAnchor": 78.35416666666667,
+            "width": 502
+          }
+        ]
+      },
+      "reverse": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 1260,
+            "max": 77544,
+            "height": 602,
+            "topAnchor": 36.24948024948025,
+            "bottomAnchor": 55.1328125,
+            "width": 502
+          },
+          {
+            "top": 1788,
+            "max": 78185,
+            "height": 602,
+            "topAnchor": 55.140625,
+            "bottomAnchor": 74.48046875,
+            "width": 502
+          }
+        ]
+      },
+      "tail": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 77183,
+            "max": 77785,
+            "height": 602,
+            "topAnchor": 3173.2447916666665,
+            "bottomAnchor": 3192.253638253638,
+            "width": 502
+          },
+          {
+            "top": 78534,
+            "max": 78534,
+            "height": 602,
+            "topAnchor": 3192.2411642411644,
+            "bottomAnchor": null,
+            "width": 502
+          }
+        ]
+      },
+      "blocked": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 77183,
+            "max": 77785,
+            "height": 602,
+            "topAnchor": 3173.2447916666665,
+            "bottomAnchor": 3192.253638253638,
+            "width": 502
+          },
+          {
+            "top": 78534,
+            "max": 78534,
+            "height": 602,
+            "topAnchor": 3192.2411642411644,
+            "bottomAnchor": null,
+            "width": 502
+          }
+        ]
+      },
+      "back": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 77083,
+            "max": 77785,
+            "height": 602,
+            "topAnchor": 3170.1653645833335,
+            "bottomAnchor": 3189.1510416666665,
+            "width": 502
+          },
+          {
+            "top": 78434,
+            "max": 78534,
+            "height": 602,
+            "topAnchor": 3189.1354166666665,
+            "bottomAnchor": 3210.7135416666665,
+            "width": 502
+          }
+        ]
+      }
+    },
+    {
+      "mode": {
+        "mode": "source",
+        "source": false
+      },
+      "initial": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 1280,
+            "max": 78151,
+            "height": 602,
+            "topAnchor": 34.739583333333336,
+            "bottomAnchor": 51.885416666666664,
+            "width": 502
+          },
+          {
+            "top": 1744,
+            "max": 79094,
+            "height": 602,
+            "topAnchor": 51.893229166666664,
+            "bottomAnchor": 68.67706919945726,
+            "width": 502
+          }
+        ]
+      },
+      "forward": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 1460,
+            "max": 78151,
+            "height": 602,
+            "topAnchor": 40.03120759837178,
+            "bottomAnchor": 56.763907734056986,
+            "width": 502
+          },
+          {
+            "top": 1924,
+            "max": 79094,
+            "height": 602,
+            "topAnchor": 56.76797829036635,
+            "bottomAnchor": 73.9609375,
+            "width": 502
+          }
+        ]
+      },
+      "reverse": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 1340,
+            "max": 78151,
+            "height": 602,
+            "topAnchor": 36.5101763907734,
+            "bottomAnchor": 53.466145833333336,
+            "width": 502
+          },
+          {
+            "top": 1804,
+            "max": 79094,
+            "height": 602,
+            "topAnchor": 53.473958333333336,
+            "bottomAnchor": 70.44010416666667,
+            "width": 502
+          }
+        ]
+      },
+      "tail": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 77597,
+            "max": 78199,
+            "height": 602,
+            "topAnchor": 3176.1261872455902,
+            "bottomAnchor": 3192.8588873812755,
+            "width": 502
+          },
+          {
+            "top": 79186,
+            "max": 79186,
+            "height": 602,
+            "topAnchor": 3192.8493894165535,
+            "bottomAnchor": null,
+            "width": 502
+          }
+        ]
+      },
+      "blocked": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 77597,
+            "max": 78199,
+            "height": 602,
+            "topAnchor": 3176.1261872455902,
+            "bottomAnchor": 3192.8588873812755,
+            "width": 502
+          },
+          {
+            "top": 79186,
+            "max": 79186,
+            "height": 602,
+            "topAnchor": 3192.8493894165535,
+            "bottomAnchor": null,
+            "width": 502
+          }
+        ]
+      },
+      "back": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 77497,
+            "max": 78199,
+            "height": 602,
+            "topAnchor": 3173.0755208333335,
+            "bottomAnchor": 3190.2408854166665,
+            "width": 502
+          },
+          {
+            "top": 79086,
+            "max": 79186,
+            "height": 602,
+            "topAnchor": 3190.2317708333335,
+            "bottomAnchor": 3210.7083333333335,
+            "width": 502
+          }
+        ]
+      }
+    },
+    {
+      "mode": {
+        "mode": "preview"
+      },
+      "initial": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 1200,
+            "max": 102753,
+            "height": 602,
+            "topAnchor": 34.54545454545455,
+            "bottomAnchor": 52.40909090909091,
+            "width": 502
+          },
+          {
+            "top": 1802,
+            "max": 103432,
+            "height": 602,
+            "topAnchor": 52.40909090909091,
+            "bottomAnchor": 70.86363636363636,
+            "width": 502
+          }
+        ]
+      },
+      "forward": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 1380,
+            "max": 102753,
+            "height": 602,
+            "topAnchor": 39.63636363636363,
+            "bottomAnchor": 58.29545454545455,
+            "width": 502
+          },
+          {
+            "top": 1982,
+            "max": 103432,
+            "height": 602,
+            "topAnchor": 58.29545454545455,
+            "bottomAnchor": 75.95454545454545,
+            "width": 502
+          }
+        ]
+      },
+      "reverse": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 1260,
+            "max": 102753,
+            "height": 602,
+            "topAnchor": 35.90909090909091,
+            "bottomAnchor": 54.56818181818182,
+            "width": 502
+          },
+          {
+            "top": 1862,
+            "max": 103432,
+            "height": 602,
+            "topAnchor": 54.56818181818182,
+            "bottomAnchor": 72.45454545454545,
+            "width": 502
+          }
+        ]
+      },
+      "tail": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 102454,
+            "max": 103055,
+            "height": 602,
+            "topAnchor": 3173.409090909091,
+            "bottomAnchor": 3191.3636363636365,
+            "width": 502
+          },
+          {
+            "top": 103734,
+            "max": 103734,
+            "height": 602,
+            "topAnchor": 3191.3636363636365,
+            "bottomAnchor": null,
+            "width": 502
+          }
+        ]
+      },
+      "blocked": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 102454,
+            "max": 103055,
+            "height": 602,
+            "topAnchor": 3173.409090909091,
+            "bottomAnchor": 3191.3636363636365,
+            "width": 502
+          },
+          {
+            "top": 103734,
+            "max": 103734,
+            "height": 602,
+            "topAnchor": 3191.3636363636365,
+            "bottomAnchor": null,
+            "width": 502
+          }
+        ]
+      },
+      "back": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 102354,
+            "max": 103055,
+            "height": 602,
+            "topAnchor": 3170.431818181818,
+            "bottomAnchor": 3188.181818181818,
+            "width": 502
+          },
+          {
+            "top": 103634,
+            "max": 103734,
+            "height": 602,
+            "topAnchor": 3188.181818181818,
+            "bottomAnchor": 3199,
+            "width": 502
+          }
+        ]
+      }
+    },
+    {
+      "name": "Continuous short.md",
+      "mode": {
+        "mode": "source",
+        "source": true
+      },
+      "short": {
+        "locked": true,
+        "aligning": false,
+        "short": true,
+        "panes": [
+          {
+            "top": 0,
+            "max": 359,
+            "height": 359,
+            "topAnchor": 0,
+            "bottomAnchor": 11.791666666666666,
+            "width": 502
+          },
+          {
+            "top": 359,
+            "max": 359,
+            "height": 602,
+            "topAnchor": 11.791666666666666,
+            "bottomAnchor": null,
+            "width": 502
+          }
+        ]
+      },
+      "restored": {
+        "locked": false,
+        "panes": [
+          {
+            "top": 0,
+            "max": 359,
+            "height": 602,
+            "topAnchor": 0,
+            "bottomAnchor": 21.916666666666668,
+            "width": 502
+          },
+          {
+            "top": 359,
+            "max": 359,
+            "height": 602,
+            "topAnchor": 11.791666666666666,
+            "bottomAnchor": null,
+            "width": 502
+          }
+        ]
+      }
+    },
+    {
+      "name": "Continuous short.md",
+      "mode": {
+        "mode": "source",
+        "source": false
+      },
+      "short": {
+        "locked": true,
+        "aligning": false,
+        "short": true,
+        "panes": [
+          {
+            "top": 0,
+            "max": 359,
+            "height": 359,
+            "topAnchor": 0,
+            "bottomAnchor": 11.791666666666666,
+            "width": 502
+          },
+          {
+            "top": 359,
+            "max": 359,
+            "height": 602,
+            "topAnchor": 11.791666666666666,
+            "bottomAnchor": null,
+            "width": 502
+          }
+        ]
+      },
+      "restored": {
+        "locked": false,
+        "panes": [
+          {
+            "top": 0,
+            "max": 359,
+            "height": 602,
+            "topAnchor": 0,
+            "bottomAnchor": 21.916666666666668,
+            "width": 502
+          },
+          {
+            "top": 359,
+            "max": 359,
+            "height": 602,
+            "topAnchor": 11.791666666666666,
+            "bottomAnchor": null,
+            "width": 502
+          }
+        ]
+      }
+    },
+    {
+      "name": "Continuous short.md",
+      "mode": {
+        "mode": "preview"
+      },
+      "short": {
+        "locked": true,
+        "aligning": false,
+        "short": true,
+        "panes": [
+          {
+            "top": 0,
+            "max": 287,
+            "height": 287,
+            "topAnchor": 0,
+            "bottomAnchor": 10.55,
+            "width": 502
+          },
+          {
+            "top": 287,
+            "max": 287,
+            "height": 602,
+            "topAnchor": 10.55,
+            "bottomAnchor": null,
+            "width": 502
+          }
+        ]
+      },
+      "restored": {
+        "locked": false,
+        "panes": [
+          {
+            "top": 0,
+            "max": 287,
+            "height": 602,
+            "topAnchor": 0,
+            "bottomAnchor": 23,
+            "width": 502
+          },
+          {
+            "top": 287,
+            "max": 287,
+            "height": 602,
+            "topAnchor": 10.55,
+            "bottomAnchor": null,
+            "width": 502
+          }
+        ]
+      }
+    },
+    {
+      "name": "Continuous tiny.md",
+      "mode": {
+        "mode": "source",
+        "source": true
+      },
+      "short": {
+        "locked": true,
+        "aligning": false,
+        "short": true,
+        "panes": [
+          {
+            "top": 0,
+            "max": 0,
+            "height": 0,
+            "topAnchor": 0,
+            "bottomAnchor": 0,
+            "width": 502
+          },
+          {
+            "top": 0,
+            "max": 0,
+            "height": 602,
+            "topAnchor": 0,
+            "bottomAnchor": null,
+            "width": 502
+          }
+        ]
+      },
+      "restored": {
+        "locked": false,
+        "panes": [
+          {
+            "top": 0,
+            "max": 0,
+            "height": 602,
+            "topAnchor": 0,
+            "bottomAnchor": null,
+            "width": 502
+          },
+          {
+            "top": 0,
+            "max": 0,
+            "height": 602,
+            "topAnchor": 0,
+            "bottomAnchor": null,
+            "width": 502
+          }
+        ]
+      }
+    },
+    {
+      "name": "Continuous tiny.md",
+      "mode": {
+        "mode": "source",
+        "source": false
+      },
+      "short": {
+        "locked": true,
+        "aligning": false,
+        "short": true,
+        "panes": [
+          {
+            "top": 0,
+            "max": 0,
+            "height": 0,
+            "topAnchor": 0,
+            "bottomAnchor": 0,
+            "width": 502
+          },
+          {
+            "top": 0,
+            "max": 0,
+            "height": 602,
+            "topAnchor": 0,
+            "bottomAnchor": null,
+            "width": 502
+          }
+        ]
+      },
+      "restored": {
+        "locked": false,
+        "panes": [
+          {
+            "top": 0,
+            "max": 0,
+            "height": 602,
+            "topAnchor": 0,
+            "bottomAnchor": null,
+            "width": 502
+          },
+          {
+            "top": 0,
+            "max": 0,
+            "height": 602,
+            "topAnchor": 0,
+            "bottomAnchor": null,
+            "width": 502
+          }
+        ]
+      }
+    },
+    {
+      "name": "Continuous tiny.md",
+      "mode": {
+        "mode": "preview"
+      },
+      "short": {
+        "locked": true,
+        "aligning": false,
+        "short": true,
+        "panes": [
+          {
+            "top": 0,
+            "max": 0,
+            "height": 0,
+            "topAnchor": 0,
+            "bottomAnchor": 0,
+            "width": 502
+          },
+          {
+            "top": 0,
+            "max": 0,
+            "height": 602,
+            "topAnchor": 0,
+            "bottomAnchor": null,
+            "width": 502
+          }
+        ]
+      },
+      "restored": {
+        "locked": false,
+        "panes": [
+          {
+            "top": 0,
+            "max": 0,
+            "height": 602,
+            "topAnchor": 0,
+            "bottomAnchor": null,
+            "width": 502
+          },
+          {
+            "top": 0,
+            "max": 0,
+            "height": 602,
+            "topAnchor": 0,
+            "bottomAnchor": null,
+            "width": 502
+          }
+        ]
+      }
+    },
+    {
+      "name": "automatic resize correction",
+      "resized": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 1200,
+            "max": 101659,
+            "height": 602,
+            "topAnchor": 34.54545454545455,
+            "bottomAnchor": 52.40909090909091,
+            "width": 502
+          },
+          {
+            "top": 1802,
+            "max": 101908,
+            "height": 602,
+            "topAnchor": 52.40909090909091,
+            "bottomAnchor": 70.86363636363636,
+            "width": 502
+          }
+        ]
+      }
+    },
+    {
+      "name": "automatic correction after editing",
+      "edited": {
+        "locked": true,
+        "aligning": false,
+        "short": false,
+        "panes": [
+          {
+            "top": 1200,
+            "max": 2745,
+            "height": 602,
+            "topAnchor": 56.2,
+            "bottomAnchor": 86.3,
+            "width": 502
+          },
+          {
+            "top": 1802,
+            "max": 2791,
+            "height": 602,
+            "topAnchor": 86.3,
+            "bottomAnchor": 116.4,
+            "width": 502
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

@@ -1,0 +1,143 @@
+{
+  "app": "Strict test - vault - Obsidian 1.15.1",
+  "pluginVersion": "1.2.1",
+  "fixtureOnly": true,
+  "results": [
+    {
+      "source": false,
+      "difference": "outer width",
+      "diagnostic": {
+        "oldWouldReject": true,
+        "widths": [
+          426,
+          414
+        ],
+        "issue": null
+      },
+      "initial": {
+        "locked": true,
+        "aligning": false,
+        "panes": [
+          {
+            "top": 1104,
+            "max": 83938,
+            "topAnchor": 27.317708333333332,
+            "bottomAnchor": 47.3046875
+          },
+          {
+            "top": 1960,
+            "max": 85615,
+            "topAnchor": 47.307291666666664,
+            "bottomAnchor": 64.89280868385346
+          }
+        ]
+      },
+      "moved": {
+        "locked": true,
+        "aligning": false,
+        "panes": [
+          {
+            "top": 1204,
+            "max": 83938,
+            "topAnchor": 30.282552083333332,
+            "bottomAnchor": 50.276041666666664
+          },
+          {
+            "top": 2067,
+            "max": 85615,
+            "topAnchor": 50.28211805555556,
+            "bottomAnchor": 67.25260416666667
+          }
+        ]
+      },
+      "tail": {
+        "locked": true,
+        "aligning": false,
+        "panes": [
+          {
+            "top": 84531,
+            "max": 85205,
+            "topAnchor": 3172.592944369064,
+            "bottomAnchor": 3192.586160108548
+          },
+          {
+            "top": 86318,
+            "max": 86318,
+            "topAnchor": 3192.5888738127546,
+            "bottomAnchor": null
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "source": true,
+      "difference": "outer font",
+      "diagnostic": {
+        "oldWouldReject": true,
+        "widths": [
+          414,
+          414
+        ],
+        "issue": null
+      },
+      "initial": {
+        "locked": true,
+        "aligning": false,
+        "panes": [
+          {
+            "top": 1232,
+            "max": 85393,
+            "topAnchor": 30.466145833333332,
+            "bottomAnchor": 50.072916666666664
+          },
+          {
+            "top": 2058,
+            "max": 86138,
+            "topAnchor": 50.072916666666664,
+            "bottomAnchor": 69.0390625
+          }
+        ]
+      },
+      "moved": {
+        "locked": true,
+        "aligning": false,
+        "panes": [
+          {
+            "top": 1332,
+            "max": 85393,
+            "topAnchor": 33.3125,
+            "bottomAnchor": 52.30769230769231
+          },
+          {
+            "top": 2158,
+            "max": 86138,
+            "topAnchor": 52.30769230769231,
+            "bottomAnchor": 71.20572916666667
+          }
+        ]
+      },
+      "tail": {
+        "locked": true,
+        "aligning": false,
+        "panes": [
+          {
+            "top": 84671,
+            "max": 85393,
+            "topAnchor": 3172.775467775468,
+            "bottomAnchor": 3191.7916666666665
+          },
+          {
+            "top": 86010,
+            "max": 86010,
+            "topAnchor": 3191.78125,
+            "bottomAnchor": null
+          }
+        ]
+      },
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

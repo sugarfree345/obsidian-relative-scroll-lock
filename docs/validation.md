@@ -1,5 +1,42 @@
 # Validation
 
+## Editing compatibility 1.2.1
+
+Verified on Windows on 2026-11-17:
+
+- **62 Node/JSDOM tests**: the 50 existing tests plus 12 compatibility/diagnostic regression tests.
+- **Two additional actual Obsidian 1.15.1 scenarios** in the same guarded synthetic vault. `node tests/editor-compatibility-real-app.cjs` covers Live Preview with unequal outer-wrapper widths and Source editing with unequal inherited wrapper fonts while keeping the text layout controlled. Both scenarios assert that the old precheck would reject, the new precheck accepts, the real content seam settles, wheel scrolling preserves it, and end-of-file backfilling works. No page errors were recorded. See [numeric results](validation-editor-obsidian-1.2.1.json).
+
+The fix removes the CM6 outer-wrapper width/font precondition for editing. Same-file, same-editing-submode and public content-positioning API checks remain, and the actual seam must still converge before success. Reading mode retains its typography/width check. Failure messages now distinguish missing panes, different files, different modes, unavailable editor/API, and reading typography/width mismatches.
+
+The reported user's saved layout confirmed two Live Preview panes and the installed 1.2.0 artifact matched the delivered bytes. Runtime DOM metrics in that user's live window were not available, so the report does not identify their particular failed outer metric as proven. The constructed actual-app regressions demonstrate the false-rejection defect independently. No personal note text or plugin installation was changed by validation.
+
+The 1.2.0 real-app results below remain historical 1.2.0 evidence; the two added 1.2.1 scenarios are recorded separately.
+
+## Continuous reading 1.2.0
+
+Verified on Windows on 2026-11-17, using only synthetic documents and a dedicated Obsidian profile/vault:
+
+- `npm run check`: **50 Node/JSDOM cases** (23 continuous-reading cases and 27 manual-lock regression cases), bundle build, and release metadata verification.
+- `npm run test:browser`: **12 real Chrome 157.0.8103.79 scenarios**, including strict boundaries, immediate reversal, keyboard movement, Alt, nested scrollers, cleanup, and layout reflow. These use synthetic browser containers, not Obsidian.
+- `node tests/continuous-real-app.cjs`: **11 actual Obsidian 1.15.1 scenarios**, with real Chromium wheel input and no page errors. See [numeric results](validation-continuous-obsidian-1.2.0.json).
+
+The actual-app scenarios cover:
+
+1. Source/Source, Live Preview/Live Preview, and Reading/Reading on the same long synthetic note (800 sections): one-click placement, forward movement, reversal from the other pane, the end-of-file fallback, blocked downward input, and immediate upward reversal.
+2. A note shorter than two viewports, in all three display modes: put the right pane at the bottom, expose only the preceding content in the left pane, and restore the full left reading area on unlock.
+3. A note that fits in one viewport, in all three modes: keep the entire note in the right pane and leave the left content area blank, without duplicating the text.
+4. Automatic seam correction after resizing both panes together.
+5. Automatic seam correction after editing the synthetic note.
+
+Unit tests additionally exercise content-to-pixel maps that differ between panes, asynchronous estimate correction, input retained during alignment, Alt pause/resume, blocked-input reversal, cancellation, missing anchors, and integer pixel rounding. Alignment uses a source-position tolerance of 0.025 lines and local pixel stability; it does not promise mathematical zero error at every moment of asynchronous rendering.
+
+The short-note implementation temporarily clips the unused bottom of the left scroller. It preserves the editor's layout, padding, original inline styles and style priorities, and never changes note text. Unlocking removes the temporary clip. The public `MarkdownSubView` scroll-position API supplies content anchors; its normal editor/preview layout and DOM scroll containers are still required.
+
+Continuous mode deliberately requires the same note, same display mode (including the Source/Live Preview distinction), matching text width and typography. Arbitrary themes, mismatched folds, very large rendered blocks, third-party widgets, physical touchpad hardware, other operating systems, and older app versions were not certified by this run. A layout that cannot establish a stable seam unlocks with a notice instead of silently keeping an incorrect join.
+
+To repeat the optional actual-app harness, launch Obsidian with a **dedicated** profile, `--remote-debugging-port=19236`, and the vault at `test-results/obsidian-strict/vault`, containing `Strict test.md` and exactly two Markdown panes. The script verifies the exact vault path before loading the built plugin or changing files. Never adapt the guard to run on a personal vault. `CONTINUOUS_SHORT_ONLY=1` runs only the short-note/reflow subset. The default suite runs all 11 scenarios and writes results under `test-results/`.
+
 ## Strict fork 1.1.0
 
 The 1.1.0 fork changes the scroll engine's boundary behavior. Upstream real-app results below are historical evidence for the original implementation, **not certification of this fork**.
