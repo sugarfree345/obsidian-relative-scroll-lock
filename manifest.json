@@ -1,7 +1,7 @@
 {
   "id": "relative-scroll-lock-strict",
   "name": "Relative Scroll Lock Strict",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "minAppVersion": "1.13.7",
   "description": "Continue one note across two panes and lock their scrolling in one click, or preserve a manually chosen offset. Both panes stop together at either boundary.",
   "author": "sugarfree345 (fork), v-49 (original)",

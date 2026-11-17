@@ -1,5 +1,27 @@
 # Validation
 
+## Native scrolling 1.2.2
+
+Verified on Windows on 2026-11-17, in the guarded synthetic Obsidian vault only:
+
+- **75 Node/JSDOM tests** pass. Added cases reproduce native movement arriving during asynchronous alignment, continuous native scroll streams from either pane, same-value source writes, programmatic echoes, editable key semantics, synchronous editing-position fallback, layout-induced scroll changes at EOF, and real pointer priority. Existing compatibility, continuity and manual-lock checks remain.
+- **18 Chrome 157.0.8103.79 cases** pass: the 12 strict-scroll browser cases plus six native-input cases. The same six-case native harness fails against the published 1.2.1 commit `3a7c30e`; the fix records no reverse jumps and a zero final seam error in those synthetic browser scenarios. The drag rail in this browser-only harness is explicitly a real pointer controlling a synthetic scroller, not a native scrollbar thumb. See [native browser comparison](validation-native-browser-1.2.2.json) and [strict browser results](validation-strict-browser-1.2.2.json).
+- **20 actual Obsidian 1.15.1 native-input scenarios** pass: Reading Space, ArrowUp/Down, PageUp/Down from both panes (10); actual native scrollbar thumb drags up/down from both Reading panes (4); the same real scrollbar drags from both Live Preview panes (4); and literal Space insertion/caret navigation in both Live Preview editors (2). All scrollbar cases verify a real moving thumb rather than a track click or synthetic substitute. No page errors were recorded. See [native app results and unlocked control](validation-native-obsidian-1.2.2.json).
+- The existing **11 actual Obsidian continuity scenarios** pass again on 1.2.2: Source, Live Preview and Reading positioning/EOF/wheel movement, short and one-screen notes, resize correction, and correction after an edit. See [current continuity results](validation-continuous-obsidian-1.2.2.json).
+
+Native input supersedes an earlier alignment revision. While a pointer/key is held or native scrolling is still active, the plugin synchronizes the peer without rewriting an already-correct source position and defers position sampling. After a 120 ms scroll-quiet interval it verifies/rejoins from the last user-driven pane. Layout-induced movement is treated separately, so lazy rendering does not steal ownership or clear EOF pinning. Editing positioning no longer submits the delayed CM6 `applyScroll()` measurement chain; its fallback uses guarded synchronous block geometry.
+
+**Editing-mode measurement:** CM6 virtual-height refinements can change the numeric `scrollTop` while the same visible text remains in place. An unlocked editor control recorded a 121 px reverse change with **no** reverse source-anchor movement. The Live Preview drag checks therefore retain raw pixel traces but judge visible content using read-only cached source anchors, with a 0.05-source-line rounding tolerance. They do not call the mutating `adapter.at()` sampler during the gesture. Reading scenarios use native/unlocked movement baselines and pixel traces. These are bounded, scenario-specific checks, not a promise of zero pixel changes for every theme, decoration or virtualized document.
+
+Optional reproduction:
+
+```sh
+npm run test:browser:native
+npm run test:app:native
+```
+
+The application test requires the same dedicated test profile/vault and CDP port described below. `OBSIDIAN_NATIVE_SCROLLBAR_MODE=editing` runs the four Live Preview native-thumb checks; also setting `OBSIDIAN_NATIVE_UNLOCKED_BASELINE=1` records the unlocked editor control. `OBSIDIAN_NATIVE_TRACE_WRITES=1` optionally instruments script writes for diagnosis. Raw frames remain in ignored `test-results/`; published JSON keeps the case metrics and trace endpoints. No personal vault was used or modified.
+
 ## Editing compatibility 1.2.1
 
 Verified on Windows on 2026-11-17:

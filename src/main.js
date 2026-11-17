@@ -174,7 +174,12 @@ class RelativeScrollSession {
     const shared = Math.min(upper, Math.max(lower, delta));
     this.propagating = true;
     try {
-      this.panes.forEach((pane, index) => { pane.scrollTop = base[index] + shared; });
+      this.panes.forEach((pane, index) => {
+        const target = base[index] + shared;
+        // A native key animation or scrollbar drag already moved its source.
+        // Even writing the SAME scrollTop can cancel that native animation.
+        if (Math.abs(pane.scrollTop - target) > 0.01) pane.scrollTop = target;
+      });
       // Read back actual (possibly subpixel-rounded) positions before native
       // asynchronous scroll events echo the assignments.
       this.positions = this.panes.map((pane) => pane.scrollTop);
@@ -222,9 +227,62 @@ class ContinuousScrollSession extends RelativeScrollSession {
     this.dirty = false;
     this.queuedDelta = 0;
     this.atEnd = false;
+    this.driver = 0;
+    this.inputRevision = 0;
+    this.nativeUntil = 0;
+    this.intentUntil = 0;
+    this.intentDriver = -1;
+    this.layoutUntil = 0;
+    this.geometry = panes.map((pane) => [pane.scrollHeight, pane.clientHeight]);
+    this.nativeQuietMs = options.nativeQuietMs ?? 120;
+    this.nativePointers = new Set();
+    this.nativeKeys = new Set();
     const win = panes[0].ownerDocument.defaultView;
+    panes.forEach((pane, index) => {
+      this.listen(pane, "pointerdown", (event) => {
+        if (event.button !== 0) return;
+        this.nativePointers.add(event.pointerId);
+        this.nativeInput(index);
+      }, true);
+      this.listen(pane, "beforeinput", () => this.nativeInput(index), true);
+      this.listen(pane, "compositionstart", () => {
+        this.nativeKeys.add("composition");
+        this.nativeInput(index);
+      }, true);
+      this.listen(pane, "compositionend", () => {
+        this.nativeKeys.delete("composition");
+        this.nativeInput(index);
+      }, true);
+    });
+    this.listen(win, "pointerup", () => this.endNativePointer(), true);
+    this.listen(win, "pointercancel", () => this.endNativePointer(), true);
+    this.listen(win, "mouseup", () => this.endNativePointer(), true);
+    const navigation = new Set([" ", "Spacebar", "ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End"]);
+    this.listen(win, "keydown", (event) => {
+      if (!navigation.has(event.key)) return;
+      let index = panes.findIndex((pane) => event.target === pane || pane.contains(event.target));
+      const body = event.target === panes[0].ownerDocument.body;
+      if (index < 0 && body) index = this.driver;
+      if (index < 0) return;
+      // Observe intent, never consume editing keys or caret navigation.
+      this.nativeKeys.add(event.key);
+      this.nativeInput(index);
+      if (body) this.intentDriver = -1;
+    }, true);
+    this.listen(win, "keyup", (event) => {
+      if (this.nativeKeys.delete(event.key)) {
+        this.nativeUntil = Date.now() + this.nativeQuietMs;
+        this.schedule();
+      }
+    }, true);
+    this.listen(win, "blur", () => {
+      this.nativePointers.clear();
+      this.nativeKeys.clear();
+      this.nativeUntil = Date.now() + this.nativeQuietMs;
+      this.schedule();
+    });
     if (win.ResizeObserver) {
-      const observer = new win.ResizeObserver(() => this.schedule());
+      const observer = new win.ResizeObserver(() => { this.layoutUntil = Date.now() + 250; this.schedule(); });
       for (const adapter of adapters) {
         if (adapter.content) observer.observe(adapter.content);
         if (adapter.container) observer.observe(adapter.container);
@@ -232,7 +290,7 @@ class ContinuousScrollSession extends RelativeScrollSession {
       this.disposers.push(() => observer.disconnect());
     }
     if (win.MutationObserver) {
-      const observer = new win.MutationObserver(() => this.schedule());
+      const observer = new win.MutationObserver(() => { this.layoutUntil = Date.now() + 250; this.schedule(); });
       for (const adapter of adapters) if (adapter.content) {
         observer.observe(adapter.content, { childList: true, subtree: true, characterData: true });
       }
@@ -252,32 +310,75 @@ class ContinuousScrollSession extends RelativeScrollSession {
     return true;
   }
 
-  wait() {
+  wait(delay = this.settleMs) {
     return new Promise((resolve) => {
       this.pendingWait = resolve;
       this.timer = this.panes[0].ownerDocument.defaultView.setTimeout(() => {
         this.timer = null;
         this.pendingWait = null;
         resolve();
-      }, this.settleMs);
+      }, delay);
     });
   }
 
   schedule() {
     if (this.disposed || this.alt) return;
-    if (this.aligning) { this.dirty = true; return; }
+    if (this.running || this.aligning) { this.dirty = true; return; }
     if (this.scheduled !== null) return;
     const win = this.panes[0].ownerDocument.defaultView;
     this.scheduled = win.setTimeout(() => {
       this.scheduled = null;
       void this.realign();
-    }, this.settleMs);
+    }, Math.max(this.settleMs, this.nativeUntil - Date.now()));
+  }
+
+  nativeBusy() {
+    return this.nativePointers.size > 0 || this.nativeKeys.size > 0 || Date.now() < this.nativeUntil;
+  }
+
+  nativeInput(index) {
+    this.driver = index;
+    this.intentDriver = index;
+    this.inputRevision++;
+    this.queuedDelta = 0;
+    this.nativeUntil = Date.now() + this.nativeQuietMs;
+    this.intentUntil = this.nativeUntil;
+    this.schedule();
+  }
+
+  nativeIntent(index) {
+    return (this.intentDriver === -1 || this.intentDriver === index) &&
+      (this.nativePointers.size > 0 || this.nativeKeys.size > 0 || Date.now() < this.intentUntil);
+  }
+
+  rememberGeometry() {
+    this.geometry = this.panes.map((pane) => [pane.scrollHeight, pane.clientHeight]);
+  }
+
+  endNativePointer() {
+    if (!this.nativePointers.size) return;
+    this.nativePointers.clear();
+    this.nativeUntil = Date.now() + this.nativeQuietMs;
+    this.schedule();
+  }
+
+  alignmentStatus(revision) {
+    if (!this.valid()) return false;
+    if (this.inputRevision !== revision || this.nativeBusy()) return "native-input";
+    return true;
+  }
+
+  wheel(index, event) {
+    const wasPrevented = event.defaultPrevented;
+    super.wheel(index, event);
+    if (!wasPrevented && event.defaultPrevented) this.driver = index;
   }
 
   setAlt(value) {
+    const wasAlt = this.alt;
     super.setAlt(value);
     if (value) this.atEnd = false;
-    if (!value && this.continuous) this.schedule();
+    if (wasAlt && !value && this.continuous) this.schedule();
   }
 
   move(delta) {
@@ -294,8 +395,12 @@ class ContinuousScrollSession extends RelativeScrollSession {
     }
     const before = this.positions.slice();
     super.move(delta);
+    this.rememberGeometry();
     if (this.positions.some((position, i) => Math.abs(position - before[i]) > 0.01)) {
       this.atEnd = this.panes[1].scrollTop >= this.max(1) - 1;
+      // adapter.at() briefly changes scrollTop. Do not let this measurement
+      // interrupt an in-progress native animation or thumb drag.
+      if (this.nativeBusy()) { this.schedule(); return; }
       const bottom = this.adapters[0].at(this.panes[0].scrollTop + this.height(0));
       const top = this.adapters[1].at(this.panes[1].scrollTop);
       if (!Number.isFinite(bottom) || !Number.isFinite(top) || Math.abs(bottom - top) > 0.025) this.schedule();
@@ -303,8 +408,27 @@ class ContinuousScrollSession extends RelativeScrollSession {
   }
 
   scroll(index) {
-    if (this.aligning || !this.valid()) return;
-    super.scroll(index);
+    if (!this.valid() || this.propagating) return;
+    if (this.alt) { this.driver = index; super.scroll(index); return; }
+    const delta = this.panes[index].scrollTop - this.positions[index];
+    if (Math.abs(delta) <= 0.01) return; // expected programmatic echo
+    const geometryChanged = this.panes.some((pane, i) =>
+      Math.abs(pane.scrollHeight - this.geometry[i][0]) > 1 || Math.abs(pane.clientHeight - this.geometry[i][1]) > 1);
+    if (!this.nativeIntent(index) && (geometryChanged || Date.now() < this.layoutUntil)) {
+      // Lazy rendering can reposition a view without a user gesture. Accept
+      // its geometry update, but do not give it ownership or clear EOF pinning.
+      this.positions[index] = this.panes[index].scrollTop;
+      this.rememberGeometry();
+      this.schedule();
+      return;
+    }
+    this.nativeInput(index);
+    // Native scroll already moved the source. Synchronize the peer now, and
+    // supersede an older asynchronous alignment instead of queuing/undoing it.
+    RelativeScrollSession.prototype.move.call(this, delta);
+    this.rememberGeometry();
+    this.atEnd = this.panes[1].scrollTop >= this.max(1) - 1;
+    this.schedule();
   }
 
   capture() {
@@ -352,17 +476,44 @@ class ContinuousScrollSession extends RelativeScrollSession {
     return error <= 0.025 ? best : null;
   }
 
-  async place(index, anchor) {
+  setPosition(index, top) {
+    const pane = this.panes[index];
+    if (Math.abs(pane.scrollTop - top) > 0.01) pane.scrollTop = top;
+    this.positions[index] = pane.scrollTop;
+    this.rememberGeometry();
+  }
+
+  async place(index, anchor, revision) {
     if (!this.valid() || !Number.isFinite(anchor)) return false;
-    this.adapters[index].apply(anchor);
+    if (this.alignmentStatus(revision) !== true) return true;
+    const pixel = this.pixelFor(index, anchor);
+    if (pixel !== null) this.setPosition(index, pixel);
+    else {
+      this.adapters[index].apply(anchor);
+      this.positions[index] = this.panes[index].scrollTop;
+    }
     await this.wait();
     return this.valid();
+  }
+
+  async runAlignment() {
+    while (this.valid()) {
+      while (this.nativeBusy() && this.valid()) {
+        this.aligning = false;
+        this.onState();
+        await this.wait(Math.max(this.settleMs, this.nativeUntil - Date.now(), 10));
+      }
+      if (!this.valid()) return false;
+      const result = await this.align(this.inputRevision);
+      if (result !== "native-input") return result;
+    }
+    return false;
   }
 
   realign() {
     if (this.running) return this.running;
     if (!this.valid()) return Promise.resolve(false);
-    this.running = this.align().catch(() => {
+    this.running = this.runAlignment().catch(() => {
       if (!this.disposed) this.onInvalid();
       return false;
     }).finally(() => {
@@ -378,7 +529,7 @@ class ContinuousScrollSession extends RelativeScrollSession {
     return this.running;
   }
 
-  async align() {
+  async align(revision) {
     this.aligning = true;
     this.onState();
     const [left, right] = this.panes;
@@ -387,42 +538,59 @@ class ContinuousScrollSession extends RelativeScrollSession {
     this.adapters[0].setViewportHeight(null);
     this.short = false;
     let leftAnchor = this.adapters[0].at(left.scrollTop);
+    let rightAnchor = this.adapters[1].at(right.scrollTop);
+    const driver = this.driver;
     await this.wait();
     let stable = 0;
     let previous = null;
     let tail = this.atEnd;
     for (let pass = 0; pass < this.maxPasses; pass++) {
-      if (!this.valid()) return false;
+      const status = this.alignmentStatus(revision);
+      if (status !== true) return status;
       if (this.paused()) return true;
       this.dirty = false;
-      if (!tail) {
+      if (!tail && driver === 0) {
         const current = this.adapters[0].at(left.scrollTop);
         if (!Number.isFinite(leftAnchor)) leftAnchor = current;
         if (Number.isFinite(leftAnchor) && Number.isFinite(current) && Math.abs(current - leftAnchor) > 0.025) {
-          if (!await this.place(0, leftAnchor)) return false;
+          if (!await this.place(0, leftAnchor, revision)) return false;
+          const placed = this.alignmentStatus(revision);
+          if (placed !== true) return placed;
           if (this.paused()) return true;
         }
       }
       let seam = left.scrollTop + this.height(0);
       let expected = this.adapters[0].at(seam);
       let actual = this.adapters[1].at(right.scrollTop);
-      if (!tail && Number.isFinite(expected)) {
+      if (!tail && driver === 1) {
+        const current = this.adapters[1].at(right.scrollTop);
+        if (!Number.isFinite(rightAnchor)) rightAnchor = current;
+        if (Number.isFinite(rightAnchor) && Number.isFinite(current) && Math.abs(current - rightAnchor) > 0.025) {
+          if (!await this.place(1, rightAnchor, revision)) return false;
+          const placed = this.alignmentStatus(revision);
+          if (placed !== true) return placed;
+        }
+      }
+      if (!tail && driver === 0 && Number.isFinite(expected)) {
         if (!Number.isFinite(actual) || Math.abs(actual - expected) > 0.025) {
-          if (!await this.place(1, expected)) return false;
+          if (!await this.place(1, expected, revision)) return false;
+          const placed = this.alignmentStatus(revision);
+          if (placed !== true) return placed;
           if (this.paused()) return true;
           actual = this.adapters[1].at(right.scrollTop);
         }
         if (Number.isFinite(actual) && actual + 0.025 < expected && right.scrollTop >= this.max(1) - 1) tail = true;
         if (right.scrollTop >= this.max(1) - 3) tail = true;
-      } else if (!tail) {
+      } else if (!tail && driver === 0) {
         // Sampling beyond scrollMax is impossible. In matching layouts this
         // means there is less than one right viewport left in the document.
         if (seam > this.max(0) + 1) tail = true;
       }
-      if (tail) {
-        right.scrollTop = this.max(1);
+      if (tail || driver === 1) {
+        if (tail) this.setPosition(1, this.max(1));
         await this.wait();
-        if (!this.valid()) return false;
+        const waited = this.alignmentStatus(revision);
+        if (waited !== true) return waited;
         if (this.paused()) return true;
         actual = this.adapters[1].at(right.scrollTop);
         if (Number.isFinite(actual)) {
@@ -435,7 +603,9 @@ class ContinuousScrollSession extends RelativeScrollSession {
             if (seamTop === null) {
               // Ask Obsidian to render an unmeasured target, then invert its
               // newly measured position map. No reduced viewport is painted.
-              if (!await this.place(0, actual)) return false;
+              if (!await this.place(0, actual, revision)) return false;
+              const placed = this.alignmentStatus(revision);
+              if (placed !== true) return placed;
               if (this.paused()) return true;
               seamTop = this.pixelFor(0, actual);
             }
@@ -446,12 +616,13 @@ class ContinuousScrollSession extends RelativeScrollSession {
               // prefix in the left pane; do not mutate the Markdown file.
               this.adapters[0].setViewportHeight(Math.max(0, seamTop));
               this.short = true;
-              left.scrollTop = 0;
+              this.setPosition(0, 0);
             } else {
-              left.scrollTop = seamTop - fullHeight;
+              this.setPosition(0, seamTop - fullHeight);
             }
             await this.wait();
-            if (!this.valid()) return false;
+            const clipped = this.alignmentStatus(revision);
+            if (clipped !== true) return clipped;
           }
         }
       }
@@ -468,7 +639,6 @@ class ContinuousScrollSession extends RelativeScrollSession {
       const unchanged = previous && snapshot.every((value, i) => Math.abs(value - previous[i]) <= 1);
       stable = aligned && unchanged && (!tail || right.scrollTop >= this.max(1) - 1) ? stable + 1 : 0;
       previous = snapshot;
-      this.capture();
       if (stable >= 2) { this.atEnd = tail; return true; }
       await this.wait();
     }
@@ -652,7 +822,26 @@ module.exports = class ScrollLockPlugin extends Plugin {
           pane.scrollTop = original;
         }
       },
-      apply(anchor) { mode.applyScroll(anchor); },
+      apply(anchor) {
+        if (view.getMode() !== "source") { mode.applyScroll(anchor); return; }
+        // Obsidian's editing applyScroll can queue two CM6 requestMeasure
+        // callbacks. They cannot be cancelled when the user starts dragging.
+        // Use the editor's current block geometry synchronously instead;
+        // subsequent passes refine estimates after the target is rendered.
+        const cm = view.editor?.cm;
+        const doc = cm?.state?.doc;
+        if (!doc || typeof cm.lineBlockAt !== "function" || !cm.contentDOM) return;
+        const scroll = Math.min(Math.max(0, anchor), doc.lines - 0.99);
+        const line = Math.floor(scroll);
+        const fraction = scroll - line;
+        const block = cm.lineBlockAt(doc.line(line + 1).from);
+        const first = doc.lineAt(block.from).number - 1;
+        const count = doc.lineAt(block.to).number - first;
+        const offset = cm.contentDOM.offsetTop;
+        const top = block.top + (first === 0 ? 0 : offset);
+        const height = block.height + (first === 0 ? offset : 0);
+        pane.scrollTop = top + (line - first + fraction) * height / Math.max(1, count);
+      },
       setViewportHeight(height) {
         if (height === null) {
           if (clippedHeight === null) return;

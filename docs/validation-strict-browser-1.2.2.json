@@ -1,0 +1,56 @@
+{
+  "browser": "157.0.8103.79",
+  "source": "src/main.js",
+  "cases": [
+    {
+      "name": "wheel-bottom-from-0",
+      "passed": true
+    },
+    {
+      "name": "wheel-top-from-0",
+      "passed": true
+    },
+    {
+      "name": "wheel-bottom-from-1",
+      "passed": true
+    },
+    {
+      "name": "wheel-top-from-1",
+      "passed": true
+    },
+    {
+      "name": "native-scroll-fallback",
+      "passed": true
+    },
+    {
+      "name": "keyboard-page-navigation",
+      "passed": true
+    },
+    {
+      "name": "native-alt-adjustment",
+      "passed": true
+    },
+    {
+      "name": "nested-native-scroller",
+      "passed": true
+    },
+    {
+      "name": "nested-edge-chains-to-pair",
+      "passed": true
+    },
+    {
+      "name": "nested-containment",
+      "passed": true
+    },
+    {
+      "name": "dispose-restores-native-wheel",
+      "passed": true
+    },
+    {
+      "name": "layout-reflow-does-not-trigger-paired-scroll",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

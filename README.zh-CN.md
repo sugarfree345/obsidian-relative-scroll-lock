@@ -4,7 +4,7 @@
 
 [English](README.en.md) · [发布页](https://github.com/sugarfree345/obsidian-relative-scroll-lock/releases) · [反馈问题](https://github.com/sugarfree345/obsidian-relative-scroll-lock/issues)
 
-本插件基于 [v-49 的 Relative Scroll Lock](https://github.com/v-49/obsidian-relative-scroll-lock) 1.0.2 修改。任意一栏到顶或到底，两栏在该方向一起停住，反向滚动立即恢复。1.2.0 新增「接续并锁定」，双栏使用时无需再手动把右栏开头对准左栏末尾。1.2.1 改进源码和实时预览编辑模式的兼容性检查，并提供具体的失败提示。
+本插件基于 [v-49 的 Relative Scroll Lock](https://github.com/v-49/obsidian-relative-scroll-lock) 1.0.2 修改。任意一栏到顶或到底，两栏在该方向一起停住，反向滚动立即恢复。1.2.0 新增「接续并锁定」，双栏使用时无需再手动把右栏开头对准左栏末尾。1.2.1 改进编辑模式兼容性和失败提示。1.2.2 调整原生滚动条与键盘滚动同步，让新的输入优先于旧的自动校正。
 
 插件使用独立 ID：`relative-scroll-lock-strict`。**启用本版前，请停用原版 Relative Scroll Lock 及其他滚动同步插件。** Obsidian 插件市场中的原版条目不是本修改版。
 
@@ -12,7 +12,7 @@
 
 ### 直接安装成品
 
-1. 使用本地构建的 `dist/relative-scroll-lock-strict-1.2.1.zip`；该版本发布后，也可以从[发布页](https://github.com/sugarfree345/obsidian-relative-scroll-lock/releases)下载同名 ZIP。本地已有 1.2.1 构建，并不表示 GitHub 的最新发布已经更新。
+1. 使用本地构建的 `dist/relative-scroll-lock-strict-1.2.2.zip`；该版本发布后，也可以从[发布页](https://github.com/sugarfree345/obsidian-relative-scroll-lock/releases)下载同名 ZIP。本地已有 1.2.2 构建，并不表示 GitHub 的最新发布已经更新。
 2. 将其中的 `relative-scroll-lock-strict` 文件夹解压到仓库的插件目录，通常为 `.obsidian/plugins/`。
 3. 重启 Obsidian，在「设置 → 第三方插件」启用 **Relative Scroll Lock Strict**。需关闭安全模式（Restricted mode）。
 
@@ -39,6 +39,8 @@
 5. 插件自动把右栏定位到左栏当前可见内容的后续位置，再锁定两栏。在任意一栏滚动即可阅读。
 
 连续模式会在滚动、调整窗口、正文变化和图片加载后复核衔接。定位等待有上限；如果内容无法稳定，插件会自动解锁并提示，避免把不确定的接缝锁住。
+
+拖动滚动条或使用原生键盘滚动时，另一栏会立即同步，插件避免反复写入当前操作栏未改变的位置。手势或滚动动画尚未结束时，连续模式暂缓内容测量和重新接续；滚动静止后，以最后操作的那一栏为基准恢复接缝。焦点在可编辑内容内时，空格和方向键仍保留正常的输入与光标移动含义，不会被插件变成全局滚动快捷键。
 
 接近文末时，右栏自动到底，左栏向上调整，保持内容衔接。如果全文不足两栏，插件临时缩短左栏的阅读区域，空余位置留在左栏下方。解锁后恢复正常高度。这些操作只改变视图，不修改正文。
 
@@ -69,12 +71,17 @@
 - 不支持 PDF、Canvas、手机、独立弹出窗口、上下分栏，或主区域同时显示三栏以上。
 - 更换文件、显示模式或切换到不支持的布局后，自动解除同步；连续模式还会检查正文排版条件是否仍然满足。
 - 连续模式使用内容滚动锚点和实际布局维护衔接。复杂主题、折叠、超长渲染块或第三方渲染插件可能影响精度，不保证所有组合都始终零误差。
-- 滚轮在实际滚动前限制共同位移；滚动条等其他滚动来源通过滚动事件纠正。
+- 滚轮在实际滚动前限制共同位移；原生滚动条和键盘滚动通过滚动事件同步，连续模式在输入静止后测量并校正接缝。
 - Ctrl/Meta 加滚轮缩放、横向滚动及内部可独立滚动的元素保留正常行为。
 
 ## 验证
 
 自动化测试覆盖自动接续、兼容性诊断和手动锁定回归用例。单元测试不能替代 Obsidian 内的实际验证；各版本的验证结果、应用版本、实际场景和仍有限制的部分见[验证说明](docs/validation.md)。
+
+以下原生输入检查为可选命令，不包含在默认检查或 CI 中：
+
+- `npm run test:browser:native`：需要已安装 Chrome，使用合成滚动容器检查原生键盘和指针驱动的滚动。
+- `npm run test:app:native`：需要[验证说明](docs/validation.md)中的独立合成 Obsidian 测试实例。脚本先验证笔记库路径，再执行操作；不要对个人笔记库运行。
 
 ## 隐私与许可
 
@@ -90,4 +97,4 @@ npm run check
 npm run package
 ```
 
-生成成品文件夹 `dist/relative-scroll-lock-strict/`，以及可直接解压安装的 `dist/relative-scroll-lock-strict-1.2.1.zip`。`dist/` 中还会生成独立发布附件及 `SHA256SUMS.txt` 校验文件。ZIP 使用排序后的文件和固定时间戳，相同输入可重复生成相同压缩包。构建和自动化测试均不需要个人笔记仓库。
+生成成品文件夹 `dist/relative-scroll-lock-strict/`，以及可直接解压安装的 `dist/relative-scroll-lock-strict-1.2.2.zip`。`dist/` 中还会生成独立发布附件及 `SHA256SUMS.txt` 校验文件。ZIP 使用排序后的文件和固定时间戳，相同输入可重复生成相同压缩包。构建和自动化测试均不需要个人笔记仓库。

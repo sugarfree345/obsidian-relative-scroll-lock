@@ -159,3 +159,55 @@ test('a missing pair gives a layout-specific explanation', () => {
     assert.equal(f.plugin.continuousCompatible(null), false);
   } finally { f.cleanup(); }
 });
+
+test('Source adapter fallback uses synchronous CM block geometry without scheduling editing applyScroll', async () => {
+  const f = fixture();
+  try {
+    const view = f.pair[0].view;
+    const pane = f.plugin.scroller(view);
+    let asynchronousCalls = 0;
+    view.currentMode.applyScroll = () => { asynchronousCalls++; setTimeout(() => { pane.scrollTop = 9999; }, 0); };
+    const contentDOM = f.dom.window.document.createElement('div');
+    Object.defineProperty(contentDOM, 'offsetTop', { value: 12 });
+    view.editor = { cm: {
+      state: { doc: { lines: 100, line: number => ({ from: (number - 1) * 10 }),
+        lineAt: offset => ({ number: Math.floor(offset / 10) + 1 }) } },
+      lineBlockAt(from) { assert.equal(from, 200); return { from: 200, to: 209, top: 400, height: 20 }; },
+      contentDOM,
+    } };
+    f.plugin.adapter(view).apply(20.5);
+    assert.equal(pane.scrollTop, 422, 'geometry applies the target position synchronously');
+    await new Promise(resolve => setTimeout(resolve, 20));
+    assert.equal(asynchronousCalls, 0, 'editing applyScroll must not queue an uncancellable later movement');
+    assert.equal(pane.scrollTop, 422, 'no delayed callback changes the user position');
+  } finally { f.cleanup(); }
+});
+
+test('missing editing CM geometry does not fall back to a delayed applyScroll callback', async () => {
+  const f = fixture();
+  try {
+    const view = f.pair[0].view;
+    const pane = f.plugin.scroller(view);
+    pane.scrollTop = 123;
+    let calls = 0;
+    view.currentMode.applyScroll = () => { calls++; setTimeout(() => { pane.scrollTop = 9999; }, 0); };
+    view.editor = { cm: { state: { doc: { lines: 100 } } } };
+    f.plugin.adapter(view).apply(20.5);
+    await new Promise(resolve => setTimeout(resolve, 20));
+    assert.equal(calls, 0);
+    assert.equal(pane.scrollTop, 123, 'unsupported editing geometry cannot trigger a late scroll');
+  } finally { f.cleanup(); }
+});
+
+test('Reading adapter fallback retains the public synchronous applyScroll interface', () => {
+  const f = fixture({ modes: ['preview', 'preview'] });
+  try {
+    const view = f.pair[0].view;
+    const pane = f.plugin.scroller(view);
+    const calls = [];
+    view.currentMode.applyScroll = anchor => { calls.push(anchor); pane.scrollTop = 777; };
+    f.plugin.adapter(view).apply(20.5);
+    assert.deepEqual(calls, [20.5]);
+    assert.equal(pane.scrollTop, 777);
+  } finally { f.cleanup(); }
+});

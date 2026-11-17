@@ -4,7 +4,7 @@
 
 [简体中文](README.zh-CN.md) · [Releases](https://github.com/sugarfree345/obsidian-relative-scroll-lock/releases) · [Report an issue](https://github.com/sugarfree345/obsidian-relative-scroll-lock/issues)
 
-This is a fork of [v-49's Relative Scroll Lock](https://github.com/v-49/obsidian-relative-scroll-lock), based on version 1.0.2. Both panes stop together when either reaches a boundary, and reverse scrolling resumes immediately. Version 1.2.0 added **Continue and lock**, so continuous two-column use no longer requires manually matching the right pane to the end of the left pane. Version 1.2.1 improves compatibility checks for Source and Live Preview editing and provides specific failure notices.
+This is a fork of [v-49's Relative Scroll Lock](https://github.com/v-49/obsidian-relative-scroll-lock), based on version 1.0.2. Both panes stop together when either reaches a boundary, and reverse scrolling resumes immediately. Version 1.2.0 added **Continue and lock**, so continuous two-column use no longer requires manually matching the right pane to the end of the left pane. Version 1.2.1 improved editing compatibility and failure notices. Version 1.2.2 changes native scrollbar and keyboard synchronization so new input takes precedence over an older alignment.
 
 The fork has a separate plugin ID, `relative-scroll-lock-strict`. **Disable the original Relative Scroll Lock and any other scroll-sync plugin before enabling this fork.** The original Community Plugins listing is not this fork.
 
@@ -12,7 +12,7 @@ The fork has a separate plugin ID, `relative-scroll-lock-strict`. **Disable the 
 
 ### Install the ready-to-use ZIP
 
-1. Use the local build `dist/relative-scroll-lock-strict-1.2.1.zip`, or download that version's ZIP from [Releases](https://github.com/sugarfree345/obsidian-relative-scroll-lock/releases) once it has been published. A local 1.2.1 build does not mean that GitHub's latest release already contains it.
+1. Use the local build `dist/relative-scroll-lock-strict-1.2.2.zip`, or download that version's ZIP from [Releases](https://github.com/sugarfree345/obsidian-relative-scroll-lock/releases) once it has been published. A local 1.2.2 build does not mean that GitHub's latest release already contains it.
 2. Extract the `relative-scroll-lock-strict` folder into your vault's plugin directory, normally `.obsidian/plugins/`.
 3. Reload Obsidian. In **Settings → Community plugins**, enable **Relative Scroll Lock Strict**. Restricted mode must be off.
 
@@ -31,6 +31,8 @@ If you already use [BRAT](https://github.com/TfTHacker/obsidian42-brat), add `su
 5. The plugin places the right pane at the continuation of the left pane's visible content, then locks the pair. Scroll either pane to read.
 
 The join is rechecked while scrolling, after resizing or note changes, and when images load. Alignment has a bounded wait: if the content cannot settle, the plugin unlocks and shows a notice rather than leaving an uncertain join locked.
+
+Scrollbar drags and native keyboard scrolling synchronize the other pane immediately without repeatedly writing the active pane's unchanged position. While a native gesture or its scroll animation is still running, continuous mode defers content measurements and rejoining. After scrolling becomes quiet, it restores the join using the last pane you scrolled as the reference. Space and arrow keys keep their ordinary editing meaning when focus is in editable content; the plugin does not turn them into global scroll shortcuts.
 
 Near the end of the note, the right pane goes to the bottom and the left pane moves upward to keep the content joined. If the whole note is shorter than two panes, the left reading area temporarily becomes shorter, with unused space below it. Unlocking restores its normal size. These are view changes; the note body is not modified.
 
@@ -61,12 +63,17 @@ If the two tabs are natively linked, starting either lock mode removes their nat
 - PDF, Canvas, mobile, pop-out windows, vertically stacked panes, and three or more visible main panes are unsupported.
 - Changing the file, display mode, or supported layout unlocks the pair. Continuous mode also checks that its rendering requirements still hold.
 - Continuous mode uses content scroll anchors and measured layout to maintain the join. Complex themes, folding, very long rendered blocks, and third-party rendering plugins can affect precision; exact alignment under every combination is not guaranteed.
-- Mouse-wheel movement is constrained before native scrolling. Other scroll changes use correction through scroll events.
+- Mouse-wheel movement is constrained before native scrolling. Native scrollbar and keyboard changes synchronize through scroll events; continuous mode measures and refines the join after the input becomes quiet.
 - Ctrl/Meta-wheel zoom, horizontal scrolling, and nested scrollable elements keep their normal behavior.
 
 ## Verification
 
 The automated suites cover continuous alignment, compatibility diagnostics, and manual-lock regression cases. Unit tests do not replace checks in Obsidian. See [validation](docs/validation.md) for version-specific results, the recorded application version, actual scenarios, and any remaining limits.
+
+Optional native-input checks are separate from the default check and CI:
+
+- `npm run test:browser:native` uses an installed Chrome and synthetic scroll containers to inspect native keyboard and pointer-driven scrolling.
+- `npm run test:app:native` requires the dedicated synthetic Obsidian test instance described in [validation](docs/validation.md). It verifies the expected vault path before operating; do not run it on a personal vault.
 
 ## Privacy and license
 
@@ -85,7 +92,7 @@ npm run package
 `src/main.js` is bundled to root `main.js`. Packaging produces:
 
 - `dist/relative-scroll-lock-strict/`: installable plugin folder.
-- `dist/relative-scroll-lock-strict-1.2.1.zip`: installable ZIP containing that folder.
+- `dist/relative-scroll-lock-strict-1.2.2.zip`: installable ZIP containing that folder.
 - `dist/main.js`, `dist/manifest.json`, `dist/styles.css`, `dist/LICENSE`: standalone release assets.
 - `dist/SHA256SUMS.txt`: release checksums.
 

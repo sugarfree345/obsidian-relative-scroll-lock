@@ -1,0 +1,2670 @@
+{
+  "pluginVersion": "1.2.2",
+  "fixtureOnly": true,
+  "verified": 20,
+  "note": "Frame traces stay in test-results. Summaries retain baseline distances, reverse-step metrics, content-anchor metrics and verified thumb hits.",
+  "readingAndEditorKeys": {
+    "app": "Native editing semantics - vault - Obsidian 1.15.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.11.5 Chrome/142.0.7444.226 Electron/39.2.6 Safari/537.36",
+    "pluginVersion": "1.2.2",
+    "fixtureOnly": true,
+    "recorder": "requestAnimationFrame reads scrollTop only; content anchors sampled after input and quiet period",
+    "results": [
+      {
+        "name": "Reading pane 0: Space",
+        "status": "passed",
+        "index": 0,
+        "key": "Space",
+        "direction": 1,
+        "nativeMotion": {
+          "start": 4000,
+          "end": 4526,
+          "signedDistance": 526,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "source": {
+          "start": 4000,
+          "end": 4526,
+          "signedDistance": 526,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "peer": {
+          "start": 4602,
+          "end": 5128,
+          "signedDistance": 526,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "baseline": {
+          "frameCount": 75,
+          "firstFrame": {
+            "time": 1204054.099999994,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1204460.2000000179,
+            "tops": [
+              4526,
+              4602
+            ]
+          }
+        },
+        "locked": {
+          "frameCount": 82,
+          "firstFrame": {
+            "time": 1205575.7000000179,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1206022.7000000179,
+            "tops": [
+              4526,
+              5128
+            ]
+          }
+        },
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 4526,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 101.13636363636364,
+              "bottomAnchor": 114.81818181818181
+            },
+            {
+              "top": 5128,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 114.81818181818181,
+              "bottomAnchor": 128.5
+            }
+          ]
+        }
+      },
+      {
+        "name": "Reading pane 0: ArrowDown",
+        "status": "passed",
+        "index": 0,
+        "key": "ArrowDown",
+        "direction": 1,
+        "nativeMotion": {
+          "start": 4000,
+          "end": 4040,
+          "signedDistance": 40,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "source": {
+          "start": 4000,
+          "end": 4040,
+          "signedDistance": 40,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "peer": {
+          "start": 4602,
+          "end": 4642,
+          "signedDistance": 40,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "baseline": {
+          "frameCount": 72,
+          "firstFrame": {
+            "time": 1207670.2000000179,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1208060.800000012,
+            "tops": [
+              4040,
+              4602
+            ]
+          }
+        },
+        "locked": {
+          "frameCount": 10,
+          "firstFrame": {
+            "time": 1209195.400000006,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1209646.400000006,
+            "tops": [
+              4040,
+              4642
+            ]
+          }
+        },
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 4040,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 90.0909090909091,
+              "bottomAnchor": 103.77272727272727
+            },
+            {
+              "top": 4642,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 103.77272727272727,
+              "bottomAnchor": 117.45454545454545
+            }
+          ]
+        }
+      },
+      {
+        "name": "Reading pane 0: ArrowUp",
+        "status": "passed",
+        "index": 0,
+        "key": "ArrowUp",
+        "direction": -1,
+        "nativeMotion": {
+          "start": 4000,
+          "end": 3960,
+          "signedDistance": 40,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "source": {
+          "start": 4000,
+          "end": 3960,
+          "signedDistance": 40,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "peer": {
+          "start": 4602,
+          "end": 4562,
+          "signedDistance": 40,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "baseline": {
+          "frameCount": 42,
+          "firstFrame": {
+            "time": 1211313.800000012,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1211704.599999994,
+            "tops": [
+              3960,
+              4602
+            ]
+          }
+        },
+        "locked": {
+          "frameCount": 36,
+          "firstFrame": {
+            "time": 1212822.400000006,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1213288,
+            "tops": [
+              3960,
+              4562
+            ]
+          }
+        },
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 3960,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 88.27272727272727,
+              "bottomAnchor": 101.95454545454545
+            },
+            {
+              "top": 4562,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 101.95454545454545,
+              "bottomAnchor": 115.63636363636364
+            }
+          ]
+        }
+      },
+      {
+        "name": "Reading pane 0: PageDown",
+        "status": "passed",
+        "index": 0,
+        "key": "PageDown",
+        "direction": 1,
+        "nativeMotion": {
+          "start": 4000,
+          "end": 4526,
+          "signedDistance": 526,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "source": {
+          "start": 4000,
+          "end": 4526,
+          "signedDistance": 526,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "peer": {
+          "start": 4602,
+          "end": 5128,
+          "signedDistance": 526,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "baseline": {
+          "frameCount": 34,
+          "firstFrame": {
+            "time": 1214952.400000006,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1215349,
+            "tops": [
+              4526,
+              4602
+            ]
+          }
+        },
+        "locked": {
+          "frameCount": 34,
+          "firstFrame": {
+            "time": 1216455.300000012,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1216895.400000006,
+            "tops": [
+              4526,
+              5128
+            ]
+          }
+        },
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 4526,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 101.13636363636364,
+              "bottomAnchor": 114.81818181818181
+            },
+            {
+              "top": 5128,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 114.81818181818181,
+              "bottomAnchor": 128.5
+            }
+          ]
+        }
+      },
+      {
+        "name": "Reading pane 0: PageUp",
+        "status": "passed",
+        "index": 0,
+        "key": "PageUp",
+        "direction": -1,
+        "nativeMotion": {
+          "start": 4000,
+          "end": 3474,
+          "signedDistance": 526,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "source": {
+          "start": 4000,
+          "end": 3474,
+          "signedDistance": 526,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "peer": {
+          "start": 4602,
+          "end": 4076,
+          "signedDistance": 526,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "baseline": {
+          "frameCount": 35,
+          "firstFrame": {
+            "time": 1218521.7000000179,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1218949,
+            "tops": [
+              3474,
+              4602
+            ]
+          }
+        },
+        "locked": {
+          "frameCount": 50,
+          "firstFrame": {
+            "time": 1220063.800000012,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1220495.099999994,
+            "tops": [
+              3474,
+              4076
+            ]
+          }
+        },
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 3474,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 77.22727272727273,
+              "bottomAnchor": 90.9090909090909
+            },
+            {
+              "top": 4076,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 90.9090909090909,
+              "bottomAnchor": 104.5909090909091
+            }
+          ]
+        }
+      },
+      {
+        "name": "Reading pane 1: Space",
+        "status": "passed",
+        "index": 1,
+        "key": "Space",
+        "direction": 1,
+        "nativeMotion": {
+          "start": 4602,
+          "end": 5128,
+          "signedDistance": 526,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "source": {
+          "start": 4602,
+          "end": 5128,
+          "signedDistance": 526,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "peer": {
+          "start": 4000,
+          "end": 4526,
+          "signedDistance": 526,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "baseline": {
+          "frameCount": 43,
+          "firstFrame": {
+            "time": 1222145.099999994,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1222567.400000006,
+            "tops": [
+              4000,
+              5128
+            ]
+          }
+        },
+        "locked": {
+          "frameCount": 45,
+          "firstFrame": {
+            "time": 1223694.7000000179,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1224300.900000006,
+            "tops": [
+              4526,
+              5128
+            ]
+          }
+        },
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 4526,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 101.13636363636364,
+              "bottomAnchor": 114.81818181818181
+            },
+            {
+              "top": 5128,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 114.81818181818181,
+              "bottomAnchor": 128.5
+            }
+          ]
+        }
+      },
+      {
+        "name": "Reading pane 1: ArrowDown",
+        "status": "passed",
+        "index": 1,
+        "key": "ArrowDown",
+        "direction": 1,
+        "nativeMotion": {
+          "start": 4602,
+          "end": 4642,
+          "signedDistance": 40,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "source": {
+          "start": 4602,
+          "end": 4642,
+          "signedDistance": 40,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "peer": {
+          "start": 4000,
+          "end": 4040,
+          "signedDistance": 40,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "baseline": {
+          "frameCount": 31,
+          "firstFrame": {
+            "time": 1225943.800000012,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1226377.2000000179,
+            "tops": [
+              4000,
+              4642
+            ]
+          }
+        },
+        "locked": {
+          "frameCount": 93,
+          "firstFrame": {
+            "time": 1227501.800000012,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1228095.599999994,
+            "tops": [
+              4040,
+              4642
+            ]
+          }
+        },
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 4040,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 90.0909090909091,
+              "bottomAnchor": 103.77272727272727
+            },
+            {
+              "top": 4642,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 103.77272727272727,
+              "bottomAnchor": 117.45454545454545
+            }
+          ]
+        }
+      },
+      {
+        "name": "Reading pane 1: ArrowUp",
+        "status": "passed",
+        "index": 1,
+        "key": "ArrowUp",
+        "direction": -1,
+        "nativeMotion": {
+          "start": 4602,
+          "end": 4562,
+          "signedDistance": 40,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "source": {
+          "start": 4602,
+          "end": 4562,
+          "signedDistance": 40,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "peer": {
+          "start": 4000,
+          "end": 3960,
+          "signedDistance": 40,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "baseline": {
+          "frameCount": 18,
+          "firstFrame": {
+            "time": 1229758.2000000179,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1230167.800000012,
+            "tops": [
+              4000,
+              4562
+            ]
+          }
+        },
+        "locked": {
+          "frameCount": 25,
+          "firstFrame": {
+            "time": 1231280.300000012,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1231889.900000006,
+            "tops": [
+              3960,
+              4562
+            ]
+          }
+        },
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 3960,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 88.27272727272727,
+              "bottomAnchor": 101.95454545454545
+            },
+            {
+              "top": 4562,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 101.95454545454545,
+              "bottomAnchor": 115.63636363636364
+            }
+          ]
+        }
+      },
+      {
+        "name": "Reading pane 1: PageDown",
+        "status": "passed",
+        "index": 1,
+        "key": "PageDown",
+        "direction": 1,
+        "nativeMotion": {
+          "start": 4602,
+          "end": 5128,
+          "signedDistance": 526,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "source": {
+          "start": 4602,
+          "end": 5128,
+          "signedDistance": 526,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "peer": {
+          "start": 4000,
+          "end": 4526,
+          "signedDistance": 526,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "baseline": {
+          "frameCount": 25,
+          "firstFrame": {
+            "time": 1233567.5,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1233972.5,
+            "tops": [
+              4000,
+              5128
+            ]
+          }
+        },
+        "locked": {
+          "frameCount": 69,
+          "firstFrame": {
+            "time": 1235109,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1235732.7000000179,
+            "tops": [
+              4526,
+              5128
+            ]
+          }
+        },
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 4526,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 101.13636363636364,
+              "bottomAnchor": 114.81818181818181
+            },
+            {
+              "top": 5128,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 114.81818181818181,
+              "bottomAnchor": 128.5
+            }
+          ]
+        }
+      },
+      {
+        "name": "Reading pane 1: PageUp",
+        "status": "passed",
+        "index": 1,
+        "key": "PageUp",
+        "direction": -1,
+        "nativeMotion": {
+          "start": 4602,
+          "end": 4076,
+          "signedDistance": 526,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "source": {
+          "start": 4602,
+          "end": 4076,
+          "signedDistance": 526,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "peer": {
+          "start": 4000,
+          "end": 3474,
+          "signedDistance": 526,
+          "reverseDistance": 0,
+          "maxReverseStep": 0
+        },
+        "baseline": {
+          "frameCount": 19,
+          "firstFrame": {
+            "time": 1237423.099999994,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1237849.2000000179,
+            "tops": [
+              4000,
+              4076
+            ]
+          }
+        },
+        "locked": {
+          "frameCount": 49,
+          "firstFrame": {
+            "time": 1238961.099999994,
+            "tops": [
+              4000,
+              4602
+            ]
+          },
+          "lastFrame": {
+            "time": 1239568.599999994,
+            "tops": [
+              3474,
+              4076
+            ]
+          }
+        },
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 3474,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 77.22727272727273,
+              "bottomAnchor": 90.9090909090909
+            },
+            {
+              "top": 4076,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 90.9090909090909,
+              "bottomAnchor": 104.5909090909091
+            }
+          ]
+        }
+      },
+      {
+        "name": "Reading pane 0: native scrollbar drag down",
+        "status": "passed",
+        "index": 0,
+        "direction": 1,
+        "attempts": [
+          {
+            "geometry": {
+              "x": 616,
+              "y": 215.43125969716124,
+              "endY": 243.43125969716124,
+              "gutter": 12,
+              "thumbHeight": 45,
+              "top": 9000,
+              "max": 43505
+            },
+            "hitThumb": true,
+            "noTrackClick": true,
+            "movingCheckpoints": 6,
+            "source": {
+              "start": 9000,
+              "end": 11169,
+              "signedDistance": 2169,
+              "reverseDistance": 0,
+              "maxReverseStep": 0
+            },
+            "peer": {
+              "start": 9602,
+              "end": 11771,
+              "signedDistance": 2169,
+              "reverseDistance": 0,
+              "maxReverseStep": 0
+            },
+            "trace": {
+              "frameCount": 79,
+              "firstFrame": {
+                "time": 1240757.2000000179,
+                "tops": [
+                  9000,
+                  9602
+                ]
+              },
+              "lastFrame": {
+                "time": 1242073.400000006,
+                "tops": [
+                  11169,
+                  11771
+                ]
+              },
+              "operationResult": {
+                "before": [
+                  9000,
+                  9602
+                ],
+                "afterDown": [
+                  9000,
+                  9602
+                ],
+                "checkpoints": [
+                  [
+                    9373,
+                    9975
+                  ],
+                  [
+                    9685,
+                    10287
+                  ],
+                  [
+                    9919,
+                    10521
+                  ],
+                  [
+                    10310,
+                    10912
+                  ],
+                  [
+                    10701,
+                    11303
+                  ],
+                  [
+                    11169,
+                    11771
+                  ]
+                ]
+              }
+            }
+          }
+        ],
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 11169,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 252.11363636363637,
+              "bottomAnchor": 265.79545454545456
+            },
+            {
+              "top": 11771,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 265.79545454545456,
+              "bottomAnchor": 279.47727272727275
+            }
+          ]
+        }
+      },
+      {
+        "name": "Reading pane 0: native scrollbar drag up",
+        "status": "passed",
+        "index": 0,
+        "direction": -1,
+        "attempts": [
+          {
+            "geometry": {
+              "x": 616,
+              "y": 215.43125969716124,
+              "endY": 187.43125969716124,
+              "gutter": 12,
+              "thumbHeight": 45,
+              "top": 9000,
+              "max": 43505
+            },
+            "hitThumb": true,
+            "noTrackClick": true,
+            "movingCheckpoints": 6,
+            "source": {
+              "start": 9000,
+              "end": 6795,
+              "signedDistance": 2205,
+              "reverseDistance": 2,
+              "maxReverseStep": 1
+            },
+            "peer": {
+              "start": 9602,
+              "end": 7397,
+              "signedDistance": 2205,
+              "reverseDistance": 2,
+              "maxReverseStep": 1
+            },
+            "trace": {
+              "frameCount": 72,
+              "firstFrame": {
+                "time": 1243280.5,
+                "tops": [
+                  9000,
+                  9602
+                ]
+              },
+              "lastFrame": {
+                "time": 1244577,
+                "tops": [
+                  6795,
+                  7397
+                ]
+              },
+              "operationResult": {
+                "before": [
+                  9000,
+                  9602
+                ],
+                "afterDown": [
+                  9000,
+                  9602
+                ],
+                "checkpoints": [
+                  [
+                    8592,
+                    9194
+                  ],
+                  [
+                    8357,
+                    8959
+                  ],
+                  [
+                    7967,
+                    8569
+                  ],
+                  [
+                    7654,
+                    8256
+                  ],
+                  [
+                    7186,
+                    7788
+                  ],
+                  [
+                    6874,
+                    7476
+                  ]
+                ]
+              }
+            }
+          }
+        ],
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 6795,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 152.70454545454547,
+              "bottomAnchor": 166.38636363636363
+            },
+            {
+              "top": 7397,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 166.38636363636363,
+              "bottomAnchor": 180.0681818181818
+            }
+          ]
+        }
+      },
+      {
+        "name": "Reading pane 1: native scrollbar drag down",
+        "status": "passed",
+        "index": 1,
+        "direction": 1,
+        "attempts": [
+          {
+            "geometry": {
+              "x": 1194,
+              "y": 223.1387415957936,
+              "endY": 251.1387415957936,
+              "gutter": 12,
+              "thumbHeight": 45,
+              "top": 9602,
+              "max": 43505
+            },
+            "hitThumb": true,
+            "noTrackClick": true,
+            "movingCheckpoints": 6,
+            "source": {
+              "start": 9602,
+              "end": 11716,
+              "signedDistance": 2114,
+              "reverseDistance": 0,
+              "maxReverseStep": 0
+            },
+            "peer": {
+              "start": 9000,
+              "end": 11114,
+              "signedDistance": 2114,
+              "reverseDistance": 0,
+              "maxReverseStep": 0
+            },
+            "trace": {
+              "frameCount": 123,
+              "firstFrame": {
+                "time": 1245766.099999994,
+                "tops": [
+                  9000,
+                  9602
+                ]
+              },
+              "lastFrame": {
+                "time": 1247201.5,
+                "tops": [
+                  11114,
+                  11716
+                ]
+              },
+              "operationResult": {
+                "before": [
+                  9000,
+                  9602
+                ],
+                "afterDown": [
+                  9000,
+                  9602
+                ],
+                "checkpoints": [
+                  [
+                    9239,
+                    9841
+                  ],
+                  [
+                    9630,
+                    10232
+                  ],
+                  [
+                    10020,
+                    10622
+                  ],
+                  [
+                    10254,
+                    10856
+                  ],
+                  [
+                    10724,
+                    11326
+                  ],
+                  [
+                    11114,
+                    11716
+                  ]
+                ]
+              }
+            }
+          }
+        ],
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 11114,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 250.86363636363637,
+              "bottomAnchor": 264.54545454545456
+            },
+            {
+              "top": 11716,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 264.54545454545456,
+              "bottomAnchor": 278.22727272727275
+            }
+          ]
+        }
+      },
+      {
+        "name": "Reading pane 1: native scrollbar drag up",
+        "status": "passed",
+        "index": 1,
+        "direction": -1,
+        "attempts": [
+          {
+            "geometry": {
+              "x": 1194,
+              "y": 223.1387415957936,
+              "endY": 195.1387415957936,
+              "gutter": 12,
+              "thumbHeight": 45,
+              "top": 9602,
+              "max": 43505
+            },
+            "hitThumb": true,
+            "noTrackClick": true,
+            "movingCheckpoints": 6,
+            "source": {
+              "start": 9602,
+              "end": 7420,
+              "signedDistance": 2182,
+              "reverseDistance": 4,
+              "maxReverseStep": 1
+            },
+            "peer": {
+              "start": 9000,
+              "end": 6818,
+              "signedDistance": 2182,
+              "reverseDistance": 4,
+              "maxReverseStep": 1
+            },
+            "trace": {
+              "frameCount": 144,
+              "firstFrame": {
+                "time": 1248413.400000006,
+                "tops": [
+                  9000,
+                  9602
+                ]
+              },
+              "lastFrame": {
+                "time": 1249755.7000000179,
+                "tops": [
+                  6818,
+                  7420
+                ]
+              },
+              "operationResult": {
+                "before": [
+                  9000,
+                  9602
+                ],
+                "afterDown": [
+                  9000,
+                  9602
+                ],
+                "checkpoints": [
+                  [
+                    8537,
+                    9139
+                  ],
+                  [
+                    8146,
+                    8748
+                  ],
+                  [
+                    7833,
+                    8435
+                  ],
+                  [
+                    7443,
+                    8045
+                  ],
+                  [
+                    7053,
+                    7655
+                  ],
+                  [
+                    6818,
+                    7420
+                  ]
+                ]
+              }
+            }
+          }
+        ],
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 6818,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 153.22727272727272,
+              "bottomAnchor": 166.9090909090909
+            },
+            {
+              "top": 7420,
+              "height": 602,
+              "max": 43505,
+              "topAnchor": 166.9090909090909,
+              "bottomAnchor": 180.5909090909091
+            }
+          ]
+        }
+      },
+      {
+        "name": "Live Preview pane 0: Space and caret navigation",
+        "status": "passed",
+        "index": 0,
+        "before": {
+          "cursor": {
+            "line": 42,
+            "ch": 8
+          },
+          "offset": 3086,
+          "length": 73890
+        },
+        "inserted": {
+          "cursor": {
+            "line": 42,
+            "ch": 9
+          },
+          "offset": 3087,
+          "length": 73891
+        },
+        "afterDown": {
+          "cursor": {
+            "line": 42,
+            "ch": 70
+          },
+          "offset": 3148,
+          "length": 73891
+        },
+        "afterUp": {
+          "cursor": {
+            "line": 42,
+            "ch": 9
+          },
+          "offset": 3087,
+          "length": 73891
+        },
+        "space": {
+          "frameCount": 66,
+          "firstFrame": {
+            "time": 1252418.7000000179,
+            "tops": [
+              1800,
+              2306
+            ]
+          },
+          "lastFrame": {
+            "time": 1252771.400000006,
+            "tops": [
+              1800,
+              2306
+            ]
+          }
+        },
+        "down": {
+          "frameCount": 35,
+          "firstFrame": {
+            "time": 1252783.5,
+            "tops": [
+              1800,
+              2306
+            ]
+          },
+          "lastFrame": {
+            "time": 1253140.400000006,
+            "tops": [
+              1800,
+              2306
+            ]
+          }
+        },
+        "up": {
+          "frameCount": 34,
+          "firstFrame": {
+            "time": 1253152.900000006,
+            "tops": [
+              1800,
+              2306
+            ]
+          },
+          "lastFrame": {
+            "time": 1253500.800000012,
+            "tops": [
+              1800,
+              2306
+            ]
+          }
+        },
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 1800,
+              "height": 602,
+              "max": 37319,
+              "topAnchor": 38.94444444444444,
+              "bottomAnchor": 51.916666666666664
+            },
+            {
+              "top": 2306,
+              "height": 602,
+              "max": 37847,
+              "topAnchor": 51.916666666666664,
+              "bottomAnchor": 64.33333333333333
+            }
+          ]
+        }
+      },
+      {
+        "name": "Live Preview pane 1: Space and caret navigation",
+        "status": "passed",
+        "index": 1,
+        "before": {
+          "cursor": {
+            "line": 54,
+            "ch": 8
+          },
+          "offset": 3968,
+          "length": 73890
+        },
+        "inserted": {
+          "cursor": {
+            "line": 54,
+            "ch": 9
+          },
+          "offset": 3969,
+          "length": 73891
+        },
+        "afterDown": {
+          "cursor": {
+            "line": 54,
+            "ch": 70
+          },
+          "offset": 4030,
+          "length": 73891
+        },
+        "afterUp": {
+          "cursor": {
+            "line": 54,
+            "ch": 9
+          },
+          "offset": 3969,
+          "length": 73891
+        },
+        "space": {
+          "frameCount": 35,
+          "firstFrame": {
+            "time": 1256240.099999994,
+            "tops": [
+              1800,
+              2306
+            ]
+          },
+          "lastFrame": {
+            "time": 1256796.099999994,
+            "tops": [
+              1800,
+              2306
+            ]
+          }
+        },
+        "down": {
+          "frameCount": 13,
+          "firstFrame": {
+            "time": 1256810.2000000179,
+            "tops": [
+              1800,
+              2306
+            ]
+          },
+          "lastFrame": {
+            "time": 1257349.5,
+            "tops": [
+              1800,
+              2306
+            ]
+          }
+        },
+        "up": {
+          "frameCount": 11,
+          "firstFrame": {
+            "time": 1257356,
+            "tops": [
+              1800,
+              2306
+            ]
+          },
+          "lastFrame": {
+            "time": 1257860.900000006,
+            "tops": [
+              1800,
+              2306
+            ]
+          }
+        },
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 1800,
+              "height": 602,
+              "max": 37319,
+              "topAnchor": 38.94444444444444,
+              "bottomAnchor": 51.916666666666664
+            },
+            {
+              "top": 2306,
+              "height": 602,
+              "max": 38015,
+              "topAnchor": 51.916666666666664,
+              "bottomAnchor": 64.33333333333333
+            }
+          ]
+        }
+      }
+    ],
+    "errors": [],
+    "fatal": null,
+    "verified": 16,
+    "notVerified": 0,
+    "failed": 0,
+    "passed": true
+  },
+  "livePreviewScrollbars": {
+    "app": "Native scrolling acceptance - vault - Obsidian 1.15.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.11.5 Chrome/142.0.7444.226 Electron/39.2.6 Safari/537.36",
+    "pluginVersion": "1.2.2",
+    "fixtureOnly": true,
+    "unlockedScrollbarBaseline": false,
+    "recorder": "requestAnimationFrame reads scrollTop and cached editor anchors without assigning scrollTop; seam sampled after input and quiet period",
+    "results": [
+      {
+        "name": "Live Preview pane 0: native scrollbar drag down",
+        "status": "passed",
+        "index": 0,
+        "direction": 1,
+        "attempts": [
+          {
+            "geometry": {
+              "x": 616,
+              "y": 229.78153635265076,
+              "endY": 257.78153635265073,
+              "gutter": 12,
+              "thumbHeight": 45,
+              "top": 9000,
+              "max": 38687
+            },
+            "hitThumb": true,
+            "noTrackClick": true,
+            "movingCheckpoints": 6,
+            "source": {
+              "start": 9000,
+              "end": 10905,
+              "signedDistance": 1905,
+              "reverseDistance": 0,
+              "maxReverseStep": 0
+            },
+            "peer": {
+              "start": 8858,
+              "end": 10763,
+              "signedDistance": 1905,
+              "reverseDistance": 0,
+              "maxReverseStep": 0
+            },
+            "trace": {
+              "frameCount": 219,
+              "firstFrame": {
+                "time": 2942624,
+                "tops": [
+                  9000,
+                  8858
+                ],
+                "anchors": [
+                  217.83333333333334,
+                  230.30555555555554
+                ],
+                "heights": [
+                  39289,
+                  38449
+                ],
+                "state": {
+                  "driver": 0,
+                  "aligning": false,
+                  "pointers": 0,
+                  "revision": 0,
+                  "quiet": 0
+                }
+              },
+              "lastFrame": {
+                "time": 2943855.300000012,
+                "tops": [
+                  10905,
+                  10763
+                ],
+                "anchors": [
+                  257.2083333333333,
+                  270.09722222222223
+                ],
+                "heights": [
+                  39289,
+                  38785
+                ],
+                "state": {
+                  "driver": 0,
+                  "aligning": false,
+                  "pointers": 0,
+                  "revision": 25,
+                  "quiet": 0
+                }
+              },
+              "observedWriteCount": 0,
+              "operationResult": {
+                "before": [
+                  9000,
+                  8858
+                ],
+                "afterDown": [
+                  9000,
+                  8858
+                ],
+                "checkpoints": [
+                  [
+                    9307,
+                    9165
+                  ],
+                  [
+                    9654,
+                    9512
+                  ],
+                  [
+                    9932,
+                    9790
+                  ],
+                  [
+                    10280,
+                    10138
+                  ],
+                  [
+                    10627,
+                    10485
+                  ],
+                  [
+                    10905,
+                    10763
+                  ]
+                ],
+                "upAt": 2943536.700000018
+              }
+            }
+          }
+        ],
+        "visible": {
+          "source": {
+            "checked": 218,
+            "reversals": 0,
+            "maxReverseLines": 0
+          },
+          "peer": {
+            "checked": 218,
+            "reversals": 0,
+            "maxReverseLines": 0
+          }
+        },
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 10905,
+              "height": 602,
+              "max": 38687,
+              "topAnchor": 257.2083333333333,
+              "bottomAnchor": 270.09722222222223
+            },
+            {
+              "top": 10763,
+              "height": 602,
+              "max": 38183,
+              "topAnchor": 270.09722222222223,
+              "bottomAnchor": 282.4583333333333
+            }
+          ]
+        }
+      },
+      {
+        "name": "Live Preview pane 0: native scrollbar drag up",
+        "status": "passed",
+        "index": 0,
+        "direction": -1,
+        "attempts": [
+          {
+            "geometry": {
+              "x": 616,
+              "y": 229.78153635265076,
+              "endY": 201.78153635265076,
+              "gutter": 12,
+              "thumbHeight": 45,
+              "top": 9000,
+              "max": 38687
+            },
+            "hitThumb": true,
+            "noTrackClick": true,
+            "movingCheckpoints": 6,
+            "source": {
+              "start": 9000,
+              "end": 7015,
+              "signedDistance": 1985,
+              "reverseDistance": 8,
+              "maxReverseStep": 1
+            },
+            "peer": {
+              "start": 8858,
+              "end": 7209,
+              "signedDistance": 1649,
+              "reverseDistance": 8,
+              "maxReverseStep": 1
+            },
+            "trace": {
+              "frameCount": 184,
+              "firstFrame": {
+                "time": 2945122.700000018,
+                "tops": [
+                  9000,
+                  8858
+                ],
+                "anchors": [
+                  217.83333333333334,
+                  230.30555555555554
+                ],
+                "heights": [
+                  39289,
+                  39073
+                ],
+                "state": {
+                  "driver": 0,
+                  "aligning": false,
+                  "pointers": 0,
+                  "revision": 0,
+                  "quiet": 0
+                }
+              },
+              "lastFrame": {
+                "time": 2946152.599999994,
+                "tops": [
+                  7015,
+                  7209
+                ],
+                "anchors": [
+                  176.375,
+                  188.73611111111111
+                ],
+                "heights": [
+                  39289,
+                  39409
+                ],
+                "state": {
+                  "driver": 0,
+                  "aligning": false,
+                  "pointers": 0,
+                  "revision": 25,
+                  "quiet": 0
+                }
+              },
+              "observedWriteCount": 0,
+              "operationResult": {
+                "before": [
+                  9000,
+                  8858
+                ],
+                "afterDown": [
+                  9000,
+                  8858
+                ],
+                "checkpoints": [
+                  [
+                    8682,
+                    8540
+                  ],
+                  [
+                    8335,
+                    8361
+                  ],
+                  [
+                    7988,
+                    8014
+                  ],
+                  [
+                    7779,
+                    7805
+                  ],
+                  [
+                    7362,
+                    7556
+                  ],
+                  [
+                    7015,
+                    7209
+                  ]
+                ],
+                "upAt": 2945873.599999994
+              }
+            }
+          }
+        ],
+        "visible": {
+          "source": {
+            "checked": 183,
+            "reversals": 0,
+            "maxReverseLines": 0.041666666666685614
+          },
+          "peer": {
+            "checked": 183,
+            "reversals": 0,
+            "maxReverseLines": 0.013888888888885731
+          }
+        },
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 7015,
+              "height": 602,
+              "max": 38687,
+              "topAnchor": 176.375,
+              "bottomAnchor": 188.73611111111111
+            },
+            {
+              "top": 7209,
+              "height": 602,
+              "max": 38807,
+              "topAnchor": 188.73611111111111,
+              "bottomAnchor": 201.29166666666666
+            }
+          ]
+        }
+      },
+      {
+        "name": "Live Preview pane 1: native scrollbar drag down",
+        "status": "passed",
+        "index": 1,
+        "direction": 1,
+        "attempts": [
+          {
+            "geometry": {
+              "x": 1194,
+              "y": 231.83970829691796,
+              "endY": 259.83970829691793,
+              "gutter": 12,
+              "thumbHeight": 45,
+              "top": 9194,
+              "max": 38903
+            },
+            "hitThumb": true,
+            "noTrackClick": true,
+            "movingCheckpoints": 6,
+            "source": {
+              "start": 9194,
+              "end": 11106,
+              "signedDistance": 1912,
+              "reverseDistance": 0,
+              "maxReverseStep": 0
+            },
+            "peer": {
+              "start": 9000,
+              "end": 10912,
+              "signedDistance": 1912,
+              "reverseDistance": 0,
+              "maxReverseStep": 0
+            },
+            "trace": {
+              "frameCount": 225,
+              "firstFrame": {
+                "time": 2947382.400000006,
+                "tops": [
+                  9000,
+                  9194
+                ],
+                "anchors": [
+                  217.83333333333334,
+                  230.30555555555554
+                ],
+                "heights": [
+                  39289,
+                  39505
+                ],
+                "state": {
+                  "driver": 0,
+                  "aligning": false,
+                  "pointers": 0,
+                  "revision": 0,
+                  "quiet": 0
+                }
+              },
+              "lastFrame": {
+                "time": 2948638.5,
+                "tops": [
+                  10912,
+                  11106
+                ],
+                "anchors": [
+                  257.5,
+                  270.19444444444446
+                ],
+                "heights": [
+                  39289,
+                  39505
+                ],
+                "state": {
+                  "driver": 1,
+                  "aligning": false,
+                  "pointers": 0,
+                  "revision": 24,
+                  "quiet": 0
+                }
+              },
+              "observedWriteCount": 0,
+              "operationResult": {
+                "before": [
+                  9000,
+                  9194
+                ],
+                "afterDown": [
+                  9000,
+                  9194
+                ],
+                "checkpoints": [
+                  [
+                    9305,
+                    9499
+                  ],
+                  [
+                    9654,
+                    9848
+                  ],
+                  [
+                    9933,
+                    10127
+                  ],
+                  [
+                    10283,
+                    10477
+                  ],
+                  [
+                    10632,
+                    10826
+                  ],
+                  [
+                    10912,
+                    11106
+                  ]
+                ],
+                "upAt": 2948219
+              }
+            }
+          }
+        ],
+        "visible": {
+          "source": {
+            "checked": 224,
+            "reversals": 0,
+            "maxReverseLines": 0
+          },
+          "peer": {
+            "checked": 224,
+            "reversals": 0,
+            "maxReverseLines": 0
+          }
+        },
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 10912,
+              "height": 602,
+              "max": 38687,
+              "topAnchor": 257.5,
+              "bottomAnchor": 270.19444444444446
+            },
+            {
+              "top": 11106,
+              "height": 602,
+              "max": 38903,
+              "topAnchor": 270.19444444444446,
+              "bottomAnchor": 282.55555555555554
+            }
+          ]
+        }
+      },
+      {
+        "name": "Live Preview pane 1: native scrollbar drag up",
+        "status": "passed",
+        "index": 1,
+        "direction": -1,
+        "attempts": [
+          {
+            "geometry": {
+              "x": 1194,
+              "y": 231.83970829691796,
+              "endY": 203.83970829691796,
+              "gutter": 12,
+              "thumbHeight": 45,
+              "top": 9194,
+              "max": 38903
+            },
+            "hitThumb": true,
+            "noTrackClick": true,
+            "movingCheckpoints": 6,
+            "source": {
+              "start": 9194,
+              "end": 7199,
+              "signedDistance": 1995,
+              "reverseDistance": 6,
+              "maxReverseStep": 1
+            },
+            "peer": {
+              "start": 9000,
+              "end": 6981,
+              "signedDistance": 2019,
+              "reverseDistance": 6,
+              "maxReverseStep": 1
+            },
+            "trace": {
+              "frameCount": 225,
+              "firstFrame": {
+                "time": 2949880.700000018,
+                "tops": [
+                  9000,
+                  9194
+                ],
+                "anchors": [
+                  217.83333333333334,
+                  230.30555555555554
+                ],
+                "heights": [
+                  39289,
+                  39505
+                ],
+                "state": {
+                  "driver": 0,
+                  "aligning": false,
+                  "pointers": 0,
+                  "revision": 0,
+                  "quiet": 0
+                }
+              },
+              "lastFrame": {
+                "time": 2951140.200000018,
+                "tops": [
+                  6981,
+                  7199
+                ],
+                "anchors": [
+                  175.70833333333334,
+                  188.26388888888889
+                ],
+                "heights": [
+                  39289,
+                  39529
+                ],
+                "state": {
+                  "driver": 1,
+                  "aligning": false,
+                  "pointers": 0,
+                  "revision": 22,
+                  "quiet": 0
+                }
+              },
+              "observedWriteCount": 0,
+              "operationResult": {
+                "before": [
+                  9000,
+                  9194
+                ],
+                "afterDown": [
+                  9000,
+                  9194
+                ],
+                "checkpoints": [
+                  [
+                    8746,
+                    8940
+                  ],
+                  [
+                    8327,
+                    8521
+                  ],
+                  [
+                    7978,
+                    8172
+                  ],
+                  [
+                    7768,
+                    7962
+                  ],
+                  [
+                    7373,
+                    7567
+                  ],
+                  [
+                    7005,
+                    7199
+                  ]
+                ],
+                "upAt": 2950669.900000006
+              }
+            }
+          }
+        ],
+        "visible": {
+          "source": {
+            "checked": 224,
+            "reversals": 0,
+            "maxReverseLines": 0.041666666666685614
+          },
+          "peer": {
+            "checked": 224,
+            "reversals": 0,
+            "maxReverseLines": 0.041666666666685614
+          }
+        },
+        "after": {
+          "locked": true,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 6981,
+              "height": 602,
+              "max": 38687,
+              "topAnchor": 175.70833333333334,
+              "bottomAnchor": 188.26388888888889
+            },
+            {
+              "top": 7199,
+              "height": 602,
+              "max": 38927,
+              "topAnchor": 188.26388888888889,
+              "bottomAnchor": 200.625
+            }
+          ]
+        }
+      }
+    ],
+    "errors": [],
+    "fatal": null,
+    "verified": 4,
+    "notVerified": 0,
+    "failed": 0,
+    "passed": true
+  },
+  "unlockedEditorControl": {
+    "app": "Native scrolling acceptance - vault - Obsidian 1.15.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) obsidian/1.11.5 Chrome/142.0.7444.226 Electron/39.2.6 Safari/537.36",
+    "pluginVersion": "1.2.2",
+    "fixtureOnly": true,
+    "unlockedScrollbarBaseline": true,
+    "recorder": "requestAnimationFrame reads scrollTop only; content anchors sampled after input and quiet period",
+    "results": [
+      {
+        "name": "Live Preview pane 0: native scrollbar drag down",
+        "status": "passed",
+        "index": 0,
+        "direction": 1,
+        "attempts": [
+          {
+            "geometry": {
+              "x": 616,
+              "y": 229.78153635265076,
+              "endY": 257.78153635265073,
+              "gutter": 12,
+              "thumbHeight": 45,
+              "top": 9000,
+              "max": 38687
+            },
+            "hitThumb": true,
+            "noTrackClick": true,
+            "movingCheckpoints": 6,
+            "source": {
+              "start": 9000,
+              "end": 10905,
+              "signedDistance": 1905,
+              "reverseDistance": 0,
+              "maxReverseStep": 0
+            },
+            "peer": {
+              "start": 8858,
+              "end": 8858,
+              "signedDistance": 0,
+              "reverseDistance": 0,
+              "maxReverseStep": 0
+            },
+            "trace": {
+              "frameCount": 177,
+              "firstFrame": {
+                "time": 2649996.200000018,
+                "tops": [
+                  9000,
+                  8858
+                ],
+                "anchors": [
+                  217.83333333333334,
+                  230.30555555555554
+                ],
+                "heights": [
+                  39289,
+                  38449
+                ],
+                "state": {
+                  "quiet": 0
+                }
+              },
+              "lastFrame": {
+                "time": 2650970.5,
+                "tops": [
+                  10905,
+                  8858
+                ],
+                "anchors": [
+                  257.2083333333333,
+                  230.30555555555554
+                ],
+                "heights": [
+                  39289,
+                  38449
+                ],
+                "state": {
+                  "quiet": 0
+                }
+              },
+              "observedWriteCount": 0,
+              "operationResult": {
+                "before": [
+                  9000,
+                  8858
+                ],
+                "afterDown": [
+                  9000,
+                  8858
+                ],
+                "checkpoints": [
+                  [
+                    9307,
+                    8858
+                  ],
+                  [
+                    9654,
+                    8858
+                  ],
+                  [
+                    9932,
+                    8858
+                  ],
+                  [
+                    10280,
+                    8858
+                  ],
+                  [
+                    10627,
+                    8858
+                  ],
+                  [
+                    10905,
+                    8858
+                  ]
+                ],
+                "upAt": 2650663.800000012
+              }
+            }
+          }
+        ],
+        "after": {
+          "locked": false,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 10905,
+              "height": 602,
+              "max": 38687,
+              "topAnchor": 257.2083333333333,
+              "bottomAnchor": 270.09722222222223
+            },
+            {
+              "top": 8858,
+              "height": 602,
+              "max": 37847,
+              "topAnchor": 230.30555555555554,
+              "bottomAnchor": 242.66666666666666
+            }
+          ]
+        }
+      },
+      {
+        "name": "Live Preview pane 0: native scrollbar drag up",
+        "status": "passed",
+        "index": 0,
+        "direction": -1,
+        "attempts": [
+          {
+            "geometry": {
+              "x": 616,
+              "y": 229.78153635265076,
+              "endY": 201.78153635265076,
+              "gutter": 12,
+              "thumbHeight": 45,
+              "top": 9000,
+              "max": 38687
+            },
+            "hitThumb": true,
+            "noTrackClick": true,
+            "movingCheckpoints": 6,
+            "source": {
+              "start": 9000,
+              "end": 7015,
+              "signedDistance": 1985,
+              "reverseDistance": 0,
+              "maxReverseStep": 0
+            },
+            "peer": {
+              "start": 8858,
+              "end": 8858,
+              "signedDistance": 0,
+              "reverseDistance": 0,
+              "maxReverseStep": 0
+            },
+            "trace": {
+              "frameCount": 183,
+              "firstFrame": {
+                "time": 2652631.800000012,
+                "tops": [
+                  9000,
+                  8858
+                ],
+                "anchors": [
+                  217.83333333333334,
+                  230.30555555555554
+                ],
+                "heights": [
+                  39289,
+                  38593
+                ],
+                "state": {
+                  "quiet": 0
+                }
+              },
+              "lastFrame": {
+                "time": 2653637.599999994,
+                "tops": [
+                  7015,
+                  8858
+                ],
+                "anchors": [
+                  176.375,
+                  230.30555555555554
+                ],
+                "heights": [
+                  39289,
+                  38593
+                ],
+                "state": {
+                  "quiet": 0
+                }
+              },
+              "observedWriteCount": 0,
+              "operationResult": {
+                "before": [
+                  9000,
+                  8858
+                ],
+                "afterDown": [
+                  9000,
+                  8858
+                ],
+                "checkpoints": [
+                  [
+                    8682,
+                    8858
+                  ],
+                  [
+                    8335,
+                    8858
+                  ],
+                  [
+                    7988,
+                    8858
+                  ],
+                  [
+                    7779,
+                    8858
+                  ],
+                  [
+                    7362,
+                    8858
+                  ],
+                  [
+                    7015,
+                    8858
+                  ]
+                ],
+                "upAt": 2653344.700000018
+              }
+            }
+          }
+        ],
+        "after": {
+          "locked": false,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 7015,
+              "height": 602,
+              "max": 38687,
+              "topAnchor": 176.375,
+              "bottomAnchor": 188.73611111111111
+            },
+            {
+              "top": 8858,
+              "height": 602,
+              "max": 37991,
+              "topAnchor": 230.30555555555554,
+              "bottomAnchor": 242.66666666666666
+            }
+          ]
+        }
+      },
+      {
+        "name": "Live Preview pane 1: native scrollbar drag down",
+        "status": "passed",
+        "index": 1,
+        "direction": 1,
+        "attempts": [
+          {
+            "geometry": {
+              "x": 1194,
+              "y": 230.07351535561054,
+              "endY": 258.07351535561054,
+              "gutter": 12,
+              "thumbHeight": 45,
+              "top": 8858,
+              "max": 37991
+            },
+            "hitThumb": true,
+            "noTrackClick": true,
+            "movingCheckpoints": 6,
+            "source": {
+              "start": 8858,
+              "end": 10770,
+              "signedDistance": 1912,
+              "reverseDistance": 0,
+              "maxReverseStep": 0
+            },
+            "peer": {
+              "start": 9000,
+              "end": 9000,
+              "signedDistance": 0,
+              "reverseDistance": 0,
+              "maxReverseStep": 0
+            },
+            "trace": {
+              "frameCount": 193,
+              "firstFrame": {
+                "time": 2655352.900000006,
+                "tops": [
+                  9000,
+                  8858
+                ],
+                "anchors": [
+                  217.83333333333334,
+                  230.30555555555554
+                ],
+                "heights": [
+                  39289,
+                  38593
+                ],
+                "state": {
+                  "quiet": 0
+                }
+              },
+              "lastFrame": {
+                "time": 2656432,
+                "tops": [
+                  9000,
+                  10770
+                ],
+                "anchors": [
+                  217.83333333333334,
+                  270.19444444444446
+                ],
+                "heights": [
+                  39289,
+                  39001
+                ],
+                "state": {
+                  "quiet": 0
+                }
+              },
+              "observedWriteCount": 0,
+              "operationResult": {
+                "before": [
+                  9000,
+                  8858
+                ],
+                "afterDown": [
+                  9000,
+                  8858
+                ],
+                "checkpoints": [
+                  [
+                    9000,
+                    9072
+                  ],
+                  [
+                    9000,
+                    9430
+                  ],
+                  [
+                    9000,
+                    9772
+                  ],
+                  [
+                    9000,
+                    10083
+                  ],
+                  [
+                    9000,
+                    10426
+                  ],
+                  [
+                    9000,
+                    10770
+                  ]
+                ],
+                "upAt": 2656156.700000018
+              }
+            }
+          }
+        ],
+        "after": {
+          "locked": false,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 9000,
+              "height": 602,
+              "max": 38687,
+              "topAnchor": 217.83333333333334,
+              "bottomAnchor": 230.30555555555554
+            },
+            {
+              "top": 10770,
+              "height": 602,
+              "max": 38399,
+              "topAnchor": 270.19444444444446,
+              "bottomAnchor": 282.55555555555554
+            }
+          ]
+        }
+      },
+      {
+        "name": "Live Preview pane 1: native scrollbar drag up",
+        "status": "passed",
+        "index": 1,
+        "direction": -1,
+        "attempts": [
+          {
+            "geometry": {
+              "x": 1194,
+              "y": 228.29331425724968,
+              "endY": 200.29331425724968,
+              "gutter": 12,
+              "thumbHeight": 45,
+              "top": 8858,
+              "max": 38519
+            },
+            "hitThumb": true,
+            "noTrackClick": true,
+            "movingCheckpoints": 6,
+            "source": {
+              "start": 8858,
+              "end": 7005,
+              "signedDistance": 1853,
+              "reverseDistance": 121,
+              "maxReverseStep": 121
+            },
+            "peer": {
+              "start": 9000,
+              "end": 9000,
+              "signedDistance": 0,
+              "reverseDistance": 0,
+              "maxReverseStep": 0
+            },
+            "trace": {
+              "frameCount": 191,
+              "firstFrame": {
+                "time": 2658149.400000006,
+                "tops": [
+                  9000,
+                  8858
+                ],
+                "anchors": [
+                  217.83333333333334,
+                  230.30555555555554
+                ],
+                "heights": [
+                  39289,
+                  39121
+                ],
+                "state": {
+                  "quiet": 0
+                }
+              },
+              "lastFrame": {
+                "time": 2659215.300000012,
+                "tops": [
+                  9000,
+                  7005
+                ],
+                "anchors": [
+                  217.83333333333334,
+                  180.90277777777777
+                ],
+                "heights": [
+                  39289,
+                  39625
+                ],
+                "state": {
+                  "quiet": 0
+                }
+              },
+              "observedWriteCount": 1,
+              "operationResult": {
+                "before": [
+                  9000,
+                  8858
+                ],
+                "afterDown": [
+                  9000,
+                  8858
+                ],
+                "checkpoints": [
+                  [
+                    9000,
+                    8506
+                  ],
+                  [
+                    9000,
+                    8116
+                  ],
+                  [
+                    9000,
+                    7908
+                  ],
+                  [
+                    9000,
+                    7530
+                  ],
+                  [
+                    9000,
+                    7181
+                  ],
+                  [
+                    9000,
+                    7005
+                  ]
+                ],
+                "upAt": 2658941.900000006
+              }
+            }
+          }
+        ],
+        "after": {
+          "locked": false,
+          "aligning": false,
+          "panes": [
+            {
+              "top": 9000,
+              "height": 602,
+              "max": 38687,
+              "topAnchor": 217.83333333333334,
+              "bottomAnchor": 230.30555555555554
+            },
+            {
+              "top": 7005,
+              "height": 602,
+              "max": 39023,
+              "topAnchor": 180.90277777777777,
+              "bottomAnchor": 193.79166666666666
+            }
+          ]
+        }
+      }
+    ],
+    "errors": [],
+    "fatal": null,
+    "verified": 4,
+    "notVerified": 0,
+    "failed": 0,
+    "passed": true
+  },
+  "passed": true
+}

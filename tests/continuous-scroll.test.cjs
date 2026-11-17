@@ -88,7 +88,7 @@ function fixture({
   }));
   const invalid = [];
   const session = new ContinuousScrollSession(panes, adapters, {
-    settleMs: 0, maxPasses: 40, onInvalid: message => invalid.push(message), ...options,
+    settleMs: 0, nativeQuietMs: 0, maxPasses: 40, onInvalid: message => invalid.push(message), ...options,
   });
   const near = (actual, expected, message, tolerance = 1.1) =>
     assert.ok(Math.abs(actual - expected) <= tolerance, `${message}: ${actual} vs ${expected}`);
@@ -195,11 +195,22 @@ test('re-aligning after height reflow repairs the content seam without stale pix
 });
 
 test('settling retries an initial stale reading-view estimate before declaring alignment ready', async () => {
-  const f = fixture({ lag: [false, true] });
+  const f = fixture({ options: { settleMs: 10 } });
   try {
+    let estimateChanged = false;
+    const originalAt = f.adapters[1].at;
+    f.adapters[1].at = pixel => {
+      const measured = originalAt(pixel);
+      if (!estimateChanged) {
+        estimateChanged = true;
+        f.state[1].toPixel = anchor => anchor * 22;
+      }
+      return measured;
+    };
     assert.equal(await f.session.ready, true);
-    assert.ok(f.applied[1].length >= 2, 'alignment is checked again after initial placement');
+    assert.equal(estimateChanged, true, 'reading-view geometry changed before the seam stabilized');
     f.near(f.panes[0].scrollTop, 1200, 'initial estimate correction preserves left');
+    f.near(f.panes[1].scrollTop, 2090, 'right is corrected using the newly measured geometry');
     f.seam();
   } finally { await f.cleanup(); }
 });

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.2 — 2026-11-17 (Native scrolling)
+
+- Stop rewriting an unchanged source `scrollTop` when synchronizing a native scrollbar or keyboard movement. The peer still follows immediately, and strict shared-boundary clamping remains.
+- Let new native input supersede an older asynchronous alignment instead of restoring its stale reading position. In continuous mode, wait for the native gesture and its scroll animation to become quiet, then rejoin from the last pane the user scrolled.
+- Observe pointer and navigation-key activity without consuming Space, arrows, or editing input. Defer content-position sampling during native scrolling so measurements do not interrupt the browser's own animation.
+- Prefer synchronous content positioning and use current CodeMirror block geometry for the editing fallback, avoiding delayed editing-mode positioning callbacks that could arrive after a new gesture.
+- Keep lazy-rendering adjustments separate from user input so they do not steal the driving pane or clear end-of-file pinning.
+- Add native-input and browser regression coverage. See `docs/validation.md` for version-specific results and the distinction between synthetic drag controls and actual native scrollbar testing.
+
 ## 1.2.1 — 2026-11-17 (Editing compatibility)
 
 - Let Source/Source and Live Preview/Live Preview attempt content-anchor alignment without rejecting them on the outer `.cm-sizer` wrapper's width or inherited typography. A verified, stable seam is still required; failures still unlock with a notice.
